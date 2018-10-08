@@ -7,9 +7,8 @@
 //
 
 import Cocoa
-import OAuthSwift
 
-class ViewController: OAuthWebViewController {
+class ViewController: NSViewController {
     
     @IBOutlet private weak var imageView: NSImageView?
     @IBOutlet private weak var textField: NSTextField?
