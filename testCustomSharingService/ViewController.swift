@@ -20,9 +20,6 @@ class ViewController: OAuthWebViewController {
     
     @IBOutlet private weak var shareButton: NSButton!
     
-    private var oauthswift: OAuth1Swift?
-    private let webViewController = AuthWebViewController()
-    
     private var tweetService: TweetService?
     
     override func viewDidLoad() {
@@ -30,30 +27,13 @@ class ViewController: OAuthWebViewController {
         
         shareButton.sendAction(on: .leftMouseDown)
         
-        oauthswift = OAuth1Swift(
-            consumerKey:    twitterKeys.consumerKey,
-            consumerSecret: twitterKeys.consumerSecret,
-            requestTokenUrl: "https://api.twitter.com/oauth/request_token",
-            authorizeUrl:    "https://api.twitter.com/oauth/authenticate",
-            accessTokenUrl:  "https://api.twitter.com/oauth/access_token"
-        )
-        
-        oauthswift?.authorizeURLHandler = webViewController
-        webViewController.delegate = self
-        self.addChildViewController(webViewController)
-        
-        tweetService = TweetService(oauthswift: oauthswift!)
+        tweetService = TweetService(callbackScheme: "hmsharing", consumerKey: twitterKeys.consumerKey, consumerSecretKey: twitterKeys.consumerSecret)
         tweetService?.delegate = self
     }
     
     @IBAction private func authorize(_: Any) {
         
-        _ = oauthswift?.authorize(
-            withCallbackURL: URL(string: "hmsharing://oauth-callback/twitter")!,
-            success: { credential, response, parameters in },
-            failure: { error in
-                print(error.localizedDescription)
-        })
+        tweetService?.authorize(parent: self)
     }
     
     @IBAction private func test(_: Any) {
@@ -86,19 +66,6 @@ class ViewController: OAuthWebViewController {
     }
 }
 
-extension ViewController: OAuthWebViewControllerDelegate {
-    
-    func oauthWebViewControllerWillAppear() {}
-    func oauthWebViewControllerDidAppear() {}
-    func oauthWebViewControllerWillDisappear() {}
-    func oauthWebViewControllerDidDisappear() {
-        // Ensure all listeners are removed if presented web view close
-        oauthswift?.cancel()
-        
-        self.addChildViewController(webViewController)
-    }
-}
-
 extension ViewController: NSSharingServicePickerDelegate {
     
     func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, sharingServicesForItems items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService] {
@@ -110,6 +77,13 @@ extension ViewController: NSSharingServicePickerDelegate {
 }
 
 extension ViewController: TweetServiceDelegate {
+    
+    func tweetService(didSuccessAuthorize: TweetService) {}
+    
+    func tweetService(_ service: TweetService, didFailAuthorizeWithError error: Error) {
+        
+        print("Authorize Error:", error)
+    }
     
     func tweetService(_ service: TweetService, willPostItems items: [Any]) {}
     

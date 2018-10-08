@@ -11,6 +11,10 @@ import OAuthSwift
 
 public protocol TweetServiceDelegate: class {
     
+    func tweetService(didSuccessAuthorize: TweetService)
+    
+    func tweetService(_ service: TweetService, didFailAuthorizeWithError error: Error)
+    
     func tweetService(_ service: TweetService, willPostItems items: [Any])
     
     func tweetService(_ service: TweetService, didPostItems items: [Any])
@@ -42,9 +46,24 @@ private func defaultServiceImage() -> NSImage {
     return image
 }
 
+private func makeOAuth1Swift(consumerKey: String, consumerSecretKey: String) -> OAuth1Swift {
+    
+    return OAuth1Swift(
+        consumerKey: consumerKey,
+        consumerSecret: consumerSecretKey,
+        requestTokenUrl: "https://api.twitter.com/oauth/request_token",
+        authorizeUrl: "https://api.twitter.com/oauth/authenticate",
+        accessTokenUrl: "https://api.twitter.com/oauth/access_token"
+    )
+}
+
 public class TweetService {
     
-    private let oauthswift: OAuthSwift
+    private let callbackScheme: String
+    
+    private var oauthswift: OAuth1Swift
+    
+    private let webViewController: AuthWebViewController
     
     public var seriviceName: String = "Twitter"
     
@@ -54,9 +73,38 @@ public class TweetService {
     
     public weak var delegate: TweetServiceDelegate?
     
-    public init(oauthswift: OAuthSwift) {
+    public init(callbackScheme: String, consumerKey: String, consumerSecretKey: String) {
         
-        self.oauthswift = oauthswift
+        self.webViewController = AuthWebViewController(callbackScheme: callbackScheme)
+        
+        self.callbackScheme = callbackScheme
+        
+        self.oauthswift = makeOAuth1Swift(consumerKey: consumerKey, consumerSecretKey: consumerSecretKey)
+        
+    }
+    
+    public func authorize(parent viewController: NSViewController?) {
+        
+        oauthswift.authorizeURLHandler = webViewController
+        webViewController.delegate = self
+        viewController?.addChildViewController(webViewController)
+        
+        _ = oauthswift
+            .authorize(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!,
+                       success: { _,_,_  in  self.delegate?.tweetService(didSuccessAuthorize: self) },
+                       failure: { error in
+                        
+                        switch error {
+                            
+                        case .missingToken:
+                            self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
+                                                              consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
+                            
+                        default: ()
+                        }
+                        self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
+                        
+            })
     }
     
     public func sharingServicePicker(_ items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService] {
@@ -179,3 +227,15 @@ public class TweetService {
         }
     }
 }
+
+extension TweetService: OAuthWebViewControllerDelegate {
+    
+    public func oauthWebViewControllerWillAppear() {}
+    public func oauthWebViewControllerDidAppear() {}
+    public func oauthWebViewControllerWillDisappear() {}
+    public func oauthWebViewControllerDidDisappear() {
+        // Ensure all listeners are removed if presented web view close
+        oauthswift.cancel()
+    }
+}
+

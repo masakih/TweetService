@@ -13,10 +13,16 @@ import OAuthSwift
 
 class AuthWebViewController: OAuthWebViewController {
     
+    private let callbackScheme: String
+    
     private var webView: WKWebView?
     
-    override init(nibName nibNameOrNil: NSNib.Name?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+    
+    init(callbackScheme: String) {
+
+        self.callbackScheme = callbackScheme
+
+        super.init(nibName: nil, bundle: nil)
         
         present = .asSheet
     }
@@ -52,8 +58,9 @@ extension AuthWebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
         // here we handle internally the callback url and call method that call handleOpenURL (not app scheme used)
-        if let url = navigationAction.request.url , url.scheme == "hmsharing" {
-            AppDelegate.sharedInstance.applicationHandle(url: url)
+        if let url = navigationAction.request.url , url.scheme == callbackScheme {
+            
+            OAuthSwift.handle(url: url)
             decisionHandler(.cancel)
             
             self.dismissWebViewController()
