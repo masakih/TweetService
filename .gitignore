@@ -1,0 +1,12 @@
+xcshareddata
+ 
+xcdebugger
+ 
+xcuserdata
+/build/
+.DS_Store
+
+#Carthage
+Carthage
+
+/testCustomSharingService/TwitterKeys.swift
