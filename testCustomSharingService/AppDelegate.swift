@@ -17,11 +17,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     private let contentViewController = ViewController()
     
-    static var sharedInstance: AppDelegate {
-        
-        return NSApplication.shared.delegate as! AppDelegate
-    }
-    
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
     }
@@ -35,11 +30,4 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Insert code here to tear down your application
     }
     
-    func applicationHandle(url: URL) {
-        
-        OAuthSwift.handle(url: url)
-    }
-    
 }
-
-
