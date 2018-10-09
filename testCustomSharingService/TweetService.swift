@@ -165,7 +165,7 @@ public class TweetService {
                 return Future((Array(images.dropFirst()), mediaIds))
         }
         
-        let promise = Promise<(images: [NSImage], mediaIds: [String])>()
+        let promise = Promise<([NSImage], [String])>()
         
         oauthswift
             .client
@@ -185,9 +185,9 @@ public class TweetService {
                         throw TweetServiceError.notContainsMediaId
                     }
                     
-                    promise.success((images: Array(images.dropFirst()) , mediaIds: mediaIds + [mediaId]))
-                }
-                catch {
+                    promise.success((Array(images.dropFirst()) , mediaIds + [mediaId]))
+                    
+                } catch {
                     
                     promise.failure(error)
                 }
