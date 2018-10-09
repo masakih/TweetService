@@ -31,7 +31,7 @@ extension OAuthSwiftClient {
         return (promise.future, handle)
     }
     
-    func postImageFuture(_ urlString: String, parameters: OAuthSwift.Parameters, image: Data) -> FutureResult {
+    func postImageFuture(_ urlString: String, parameters: OAuthSwift.Parameters = [:], image: Data) -> FutureResult {
         
         let promise = Promise<FutureSuccess>()
         

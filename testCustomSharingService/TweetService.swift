@@ -151,7 +151,7 @@ public class TweetService {
         return true
     }
     
-    private func uploadImage(images: [NSImage], mediaIds: [String]) -> Future<(images: [NSImage], mediaIds: [String])> {
+    private func uploadImage(images: [NSImage], mediaIds: [String] = []) -> Future<(images: [NSImage], mediaIds: [String])> {
         
         guard let image = images.first else {
             
@@ -169,7 +169,7 @@ public class TweetService {
         
         oauthswift
             .client
-            .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", parameters: [:], image: imageData)
+            .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
             .future
             .onSuccess { response in
                 
@@ -199,7 +199,7 @@ public class TweetService {
     
     private func postImages(_ text: String, images: [NSImage]) {
         
-        uploadImage(images: images, mediaIds: [])
+        uploadImage(images: images)
             .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
                 
                 let mediaIDsString = mediaIds.joined(separator: ",")
