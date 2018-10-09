@@ -26,7 +26,7 @@ public enum TweetServiceError: Error {
     
     case jsonNotDictionary
     
-    case notConntainsMediaIds
+    case notContainsMediaId
 }
 
 private func defaultServiceImage() -> NSImage {
@@ -182,7 +182,7 @@ public class TweetService {
                     }
                     guard let mediaId = dict["media_id_string"] as? String else {
                         
-                        throw TweetServiceError.notConntainsMediaIds
+                        throw TweetServiceError.notContainsMediaId
                     }
                     
                     promise.success((images: Array(images.dropFirst()) , mediaIds: mediaIds + [mediaId]))
