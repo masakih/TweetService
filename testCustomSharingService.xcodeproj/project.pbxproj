@@ -21,6 +21,9 @@
 		F4612B82216AEDE700D1A681 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B80216AEDE700D1A681 /* ViewController.xib */; };
 		F4612B86216B405A00D1A681 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B85216B405A00D1A681 /* TweetService.swift */; };
 		F4612B88216B876C00D1A681 /* TwitterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B87216B876C00D1A681 /* TwitterKeys.swift */; };
+		F4612B8D216CD50F00D1A681 /* TweetPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */; };
+		F4612B8E216CD50F00D1A681 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */; };
+		F4612B90216CDF2900D1A681 /* CascadeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,6 +57,9 @@
 		F4612B80216AEDE700D1A681 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
 		F4612B85216B405A00D1A681 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		F4612B87216B876C00D1A681 /* TwitterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterKeys.swift; sourceTree = "<group>"; };
+		F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelController.swift; sourceTree = "<group>"; };
+		F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetPanelController.xib; sourceTree = "<group>"; };
+		F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeImageView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +101,9 @@
 				F4612B80216AEDE700D1A681 /* ViewController.xib */,
 				F4612B87216B876C00D1A681 /* TwitterKeys.swift */,
 				F4612B85216B405A00D1A681 /* TweetService.swift */,
+				F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */,
+				F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */,
+				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
 				F4612B74216A4EFC00D1A681 /* Future.swift */,
 				F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */,
 				F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */,
@@ -183,6 +192,7 @@
 				F4612B582169E1D100D1A681 /* Assets.xcassets in Resources */,
 				F4612B82216AEDE700D1A681 /* ViewController.xib in Resources */,
 				F4612B5B2169E1D100D1A681 /* MainMenu.xib in Resources */,
+				F4612B8E216CD50F00D1A681 /* TweetPanelController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,7 +204,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4612B81216AEDE700D1A681 /* ViewController.swift in Sources */,
+				F4612B90216CDF2900D1A681 /* CascadeImageView.swift in Sources */,
 				F4612B77216A4F4000D1A681 /* OAuthSwiftClient-Future.swift in Sources */,
+				F4612B8D216CD50F00D1A681 /* TweetPanelController.swift in Sources */,
 				F4612B7A216A6A6C00D1A681 /* AuthWebViewController.swift in Sources */,
 				F4612B75216A4EFC00D1A681 /* Future.swift in Sources */,
 				F4612B562169E1CF00D1A681 /* AppDelegate.swift in Sources */,
