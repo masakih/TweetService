@@ -211,10 +211,11 @@ public class TweetService {
                 default: params = ["status": text, "media_ids": mediaIDsString]
                 }
                 
-                return self.oauthswift.client.requestFuture("https://api.twitter.com/1.1/statuses/update.json",
-                                                            method: .POST,
-                                                            parameters: params,
-                                                            headers: nil)
+                return self.oauthswift
+                    .client
+                    .requestFuture("https://api.twitter.com/1.1/statuses/update.json",
+                                   method: .POST,
+                                   parameters: params)
                     .future
             }
             .onSuccess { _ in
