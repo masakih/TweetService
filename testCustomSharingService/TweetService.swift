@@ -116,7 +116,7 @@ public class TweetService {
             self.tweet(items: items)
         }
         
-        return proposedServices + [service]
+        return [service] + proposedServices
     }
     
     private func tweet(items: [Any]) {
