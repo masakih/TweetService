@@ -97,22 +97,22 @@ public class TweetService {
         webViewController.delegate = self
         viewController?.addChildViewController(webViewController)
         
-        _ = oauthswift
-            .authorize(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!,
-                       success: { _,_,_  in  self.delegate?.tweetService(didSuccessAuthorize: self) },
-                       failure: { error in
-                        
-                        switch error {
-                            
-                        case .missingToken:
-                            self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
-                                                              consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
-                            
-                        default: ()
-                        }
-                        self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
-                        
-            })
+        oauthswift
+            .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
+            .onSuccess { _,_,_ in self.delegate?.tweetService(didSuccessAuthorize: self) }
+            .onFailure { error in
+                
+                // error is always OAuthSwiftError.
+                let error = error as! OAuthSwiftError
+                
+                if case .missingToken = error {
+                    
+                    self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
+                                                      consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
+                }
+                
+                self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
+        }
     }
     
     public func sharingServicePicker(_ items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService] {
