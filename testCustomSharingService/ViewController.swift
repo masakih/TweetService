@@ -35,34 +35,8 @@ class ViewController: NSViewController {
         tweetService?.authorize(parent: self)
     }
     
-    
-    var panel: TweetPanelController?
-    
     @IBAction private func test(_: Any) {
         
-        panel = TweetPanelController()
-        
-        guard let tweetPanel = panel else {
-            
-            __NSBeep()
-            return
-        }
-        
-        tweetPanel.loadWindow()
-        
-        tweetPanel.images = [
-            imageView?.image,
-            imageView2?.image,
-            imageView3?.image,
-            imageView4?.image,
-        ]
-            .compactMap { $0 }
-        
-        tweetPanel.string = textField?.stringValue ?? ""
-        
-        tweetPanel.window?.center()
-        
-        tweetPanel.showWindow(nil)
     }
     
     @IBAction private func tweet(_ button: NSButton) {
