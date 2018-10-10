@@ -136,15 +136,57 @@ public class TweetService {
         panel.string = items.first(where: { item in item is String }) as? String ?? ""
         panel.images = items.filter({ item in item is NSImage }) as? [NSImage] ?? []
         
+        if let window = self.delegate?.tweetService(self, sourceWindowForShareItems: items),
+            let panelWindow = panel.window {
+            
+            let targetFrame = window.frame
+            
+            let blurWindowController = BlurWindowController()
+            blurWindowController.window?.addChildWindow(window, ordered: .below)
+            blurWindowController.window?.setFrame(targetFrame, display: false)
+            
+            blurWindowController.showWindow(self)
+            
+            var panelFrame = panelWindow.frame
+            
+            panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
+            panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + 40
+            
+            panelWindow.setFrame(panelFrame, display: false)
+            
+            panelWindow.addChildWindow(blurWindowController.window!, ordered: .below)
+        }
+        
         panel.completionHandler = { tController in
                         
             self.tweetFromPanel(items: tController.images + [tController.string] )
+            
+            if let window = self.delegate?.tweetService(self, sourceWindowForShareItems: items),
+                let panelWindow = panel.window,
+                let blurWindow = window.parent {
+                
+                blurWindow.removeChildWindow(window)
+                
+                panelWindow.removeChildWindow(blurWindow)
+                blurWindow.close()
+            }
             
             self.tweetPanel = nil
         }
         panel.cancelHandler = { _ in
             
             self.delegate?.tweetServiveDidCancel(self)
+            
+            if let window = self.delegate?.tweetService(self, sourceWindowForShareItems: items),
+                let panelWindow = panel.window,
+                let blurWindow = window.parent {
+                
+                blurWindow.removeChildWindow(window)
+                
+                panelWindow.removeChildWindow(blurWindow)
+                blurWindow.close()
+            }
+            
             
             self.tweetPanel = nil
         }

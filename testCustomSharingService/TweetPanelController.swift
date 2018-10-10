@@ -69,5 +69,12 @@ class TweetPanelController: NSWindowController {
         
         self.close()
     }
+}
+
+extension TweetPanelController: NSWindowDelegate {
     
+    func windowDidResignMain(_ notification: Notification) {
+        
+        self.window?.makeKeyAndOrderFront(nil)
+    }
 }
