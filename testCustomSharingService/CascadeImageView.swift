@@ -15,16 +15,27 @@ class CascadeImageView: NSView {
     var offset: NSSize = NSSize(width: 6, height: 6)
     
 //    var direction: NSControl.ImagePosition = .imageRight
-
+    
+    private static var imageShadow: NSShadow = {
+        
+        let shadow = NSShadow()
+        shadow.shadowOffset = NSSize(width: 4, height: -4)
+        shadow.shadowBlurRadius = 6
+        
+        return shadow
+    }()
+    
+    private var imageShadow: NSShadow {
+        
+        return type(of: self).imageShadow
+    }
+    
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
         guard !images.isEmpty else { return }
         
-        let shadow = NSShadow()
-        shadow.shadowOffset = NSSize(width: 4, height: -4)
-        shadow.shadowBlurRadius = 6
-        shadow.set()
+        imageShadow.set()
         
         let imageWidth = bounds.size.width - CGFloat(images.count - 1) * offset.width
         
