@@ -10,13 +10,7 @@ import Cocoa
 
 class CascadeImageView: NSView {
     
-    var images: [NSImage] = [] {
-        
-        didSet {
-            
-            self.needsDisplay = true
-        }
-    }
+    var images: [NSImage] = []
     
     var offset: NSSize = NSSize(width: 6, height: 6)
     
