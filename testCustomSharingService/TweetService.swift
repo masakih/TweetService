@@ -67,6 +67,8 @@ public class TweetService {
     
     private let webViewController: AuthWebViewController
     
+    private var tweetPanel: TweetPanelController?
+    
     public var seriviceName: String = "Twitter"
     
     public var serviceImage: NSImage = defaultServiceImage()
@@ -74,6 +76,7 @@ public class TweetService {
     public var alternateImage: NSImage?
     
     public weak var delegate: TweetServiceDelegate?
+    
     
     public init(callbackScheme: String, consumerKey: String, consumerSecretKey: String) {
         
@@ -122,6 +125,31 @@ public class TweetService {
     }
     
     private func tweet(items: [Any]) {
+        
+        tweetPanel = TweetPanelController()
+        
+        guard let panel = tweetPanel else { return }
+        
+        panel.string = items.first(where: { item in item is String }) as? String ?? ""
+        panel.images = items.filter({ item in item is NSImage }) as? [NSImage] ?? []
+        
+        panel.completionHandler = { tController in
+                        
+            self.tweetFromPanel(items: tController.images + [tController.string] )
+            
+            self.tweetPanel = nil
+        }
+        panel.cancelHandler = { _ in
+            
+            self.delegate?.tweetServiveDidCancel(self)
+            
+            self.tweetPanel = nil
+        }
+        
+        panel.showWindow(self)
+    }
+    
+    private func tweetFromPanel(items: [Any]) {
         
         delegate?.tweetService(self, willPostItems: items)
         
