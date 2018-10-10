@@ -30,6 +30,7 @@ class CascadeImageView: NSView {
         return type(of: self).imageShadow
     }
     
+    typealias ImageInfo = (image: NSImage, size: NSSize)
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
@@ -41,25 +42,23 @@ class CascadeImageView: NSView {
         
         _ = images
             .reversed()
-            .map { image -> (NSImage, NSSize) in
+            .map { image -> ImageInfo in
                 
                 let imageSize = image.size
                 let newHeight = imageSize.height * imageWidth / imageSize.width
                 
                 return (image, NSSize(width: imageWidth, height: newHeight))
-        }
-            .reduce(0.0) { (imageOffset, arg1) -> CGFloat in
-                
-                let (image, size) = arg1
+            }
+            .reduce(0.0) { (imageOffset, imageInfo) -> CGFloat in
                 
                 let rect = NSRect(x: bounds.maxX - imageWidth - offset.width * imageOffset,
-                                  y: bounds.maxY - size.height - offset.height * imageOffset,
-                                  width: size.width,
-                                  height: size.height)
+                                  y: bounds.maxY - imageInfo.size.height - offset.height * imageOffset,
+                                  width: imageInfo.size.width,
+                                  height: imageInfo.size.height)
                 
                 print(rect)
                 
-                image.draw(in: rect)
+                imageInfo.image.draw(in: rect)
                 
                 return imageOffset + 1
         }
