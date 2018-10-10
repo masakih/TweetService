@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F43A41D7216E485000C1E712 /* TweetPanelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */; };
 		F4612B562169E1CF00D1A681 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B552169E1CF00D1A681 /* AppDelegate.swift */; };
 		F4612B582169E1D100D1A681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4612B572169E1D100D1A681 /* Assets.xcassets */; };
 		F4612B5B2169E1D100D1A681 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B592169E1D100D1A681 /* MainMenu.xib */; };
@@ -42,6 +43,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelProvider.swift; sourceTree = "<group>"; };
 		F4612B522169E1CF00D1A681 /* testCustomSharingService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testCustomSharingService.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4612B552169E1CF00D1A681 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4612B572169E1D100D1A681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				F4612B80216AEDE700D1A681 /* ViewController.xib */,
 				F4612B87216B876C00D1A681 /* TwitterKeys.swift */,
 				F4612B85216B405A00D1A681 /* TweetService.swift */,
+				F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */,
 				F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */,
 				F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */,
 				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
@@ -208,6 +211,7 @@
 			files = (
 				F4612B81216AEDE700D1A681 /* ViewController.swift in Sources */,
 				F4612B90216CDF2900D1A681 /* CascadeImageView.swift in Sources */,
+				F43A41D7216E485000C1E712 /* TweetPanelProvider.swift in Sources */,
 				F4612B77216A4F4000D1A681 /* OAuthSwiftClient-Future.swift in Sources */,
 				F4612B8D216CD50F00D1A681 /* TweetPanelController.swift in Sources */,
 				F4612B93216E1F4E00D1A681 /* BlurWindowController.swift in Sources */,
