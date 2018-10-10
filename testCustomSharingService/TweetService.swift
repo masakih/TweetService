@@ -22,6 +22,9 @@ public protocol TweetServiceDelegate: class {
     func tweetServiveDidCancel(_ service: TweetService)
     
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error)
+    
+    
+    func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow?
 }
 
 public enum TweetServiceError: Error {

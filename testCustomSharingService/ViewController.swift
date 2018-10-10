@@ -172,4 +172,9 @@ extension ViewController: TweetServiceDelegate {
         
         print("Tweet Error:", error)
     }
+    
+    func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow? {
+        
+        return self.view.window
+    }
 }
