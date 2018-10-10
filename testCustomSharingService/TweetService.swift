@@ -19,6 +19,8 @@ public protocol TweetServiceDelegate: class {
     
     func tweetService(_ service: TweetService, didPostItems items: [Any])
     
+    func tweetServiveDidCancel(_ service: TweetService)
+    
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error)
 }
 

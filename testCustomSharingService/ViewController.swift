@@ -117,6 +117,8 @@ extension ViewController: TweetServiceDelegate {
         resetUI()
     }
     
+    func tweetServiveDidCancel(_ service: TweetService) {}
+    
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error) {
         
         print("Tweet Error:", error)
