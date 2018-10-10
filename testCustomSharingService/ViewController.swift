@@ -99,6 +99,55 @@ extension ViewController: NSSharingServicePickerDelegate {
         
         return tweetService.sharingServicePicker(items, proposedSharingServices: proposedServices)
     }
+    
+    func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, delegateFor sharingService: NSSharingService) -> NSSharingServiceDelegate? {
+        
+        return self
+    }
+}
+
+extension ViewController: NSSharingServiceDelegate {
+    
+    func sharingService(_ sharingService: NSSharingService, willShareItems items: [Any]) {
+        
+        
+    }
+    
+    func sharingService(_ sharingService: NSSharingService, didFailToShareItems items: [Any], error: Error) {
+        
+        
+    }
+    
+    func sharingService(_ sharingService: NSSharingService, didShareItems items: [Any]) {
+        
+        print("Enter sharingService(:didShareItems:)")
+    }
+    
+//    func sharingService(_ sharingService: NSSharingService, sourceFrameOnScreenForShareItem item: Any) -> NSRect {
+//
+//
+//    }
+    
+    func sharingService(_ sharingService: NSSharingService, transitionImageForShareItem item: Any, contentRect: UnsafeMutablePointer<NSRect>) -> NSImage? {
+        
+        print("Enter sharingService(:transitionImageForShareItem:)")
+        
+        return nil
+    }
+    
+    func sharingService(_ sharingService: NSSharingService, sourceWindowForShareItems items: [Any], sharingContentScope: UnsafeMutablePointer<NSSharingService.SharingContentScope>) -> NSWindow? {
+        
+        print("Enter sharingService(:sourceWindowForShareItems:sharingContentScope:)")
+        
+        return self.view.window
+    }
+    
+    func anchoringView(for sharingService: NSSharingService, showRelativeTo positioningRect: UnsafeMutablePointer<NSRect>, preferredEdge: UnsafeMutablePointer<NSRectEdge>) -> NSView? {
+        
+        print("Enter anchoringView(for:showRelativeTo:preferredEdge:)")
+        
+        return self.view
+    }
 }
 
 extension ViewController: TweetServiceDelegate {
