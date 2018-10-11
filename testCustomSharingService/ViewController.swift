@@ -8,6 +8,8 @@
 
 import Cocoa
 
+import TwitterService
+
 class ViewController: NSViewController {
     
     @IBOutlet private weak var imageView: NSImageView?

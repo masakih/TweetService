@@ -22,7 +22,7 @@ class AuthWebViewController: OAuthWebViewController {
 
         self.callbackScheme = callbackScheme
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(nibName: nil, bundle: Bundle(for: AuthWebViewController.self))
         
         present = .asSheet
     }
