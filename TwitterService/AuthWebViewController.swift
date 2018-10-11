@@ -50,13 +50,28 @@ extension AuthWebViewController: WKNavigationDelegate {
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
         
-        // here we handle internally the callback url and call method that call handleOpenURL (not app scheme used)
-        if let url = navigationAction.request.url , url.scheme == callbackScheme {
+        guard let url = navigationAction.request.url else {
+            
+            decisionHandler(.allow)
+            
+            return
+        }
+        
+        if url.scheme == callbackScheme {
             
             OAuthSwift.handle(url: url)
             decisionHandler(.cancel)
             
             self.dismissWebViewController()
+            
+            return
+        }
+        
+        if let host = url.host, host != "api.twitter.com" {
+            
+            NSWorkspace.shared.open(url)
+            decisionHandler(.cancel)
+            
             return
         }
         
