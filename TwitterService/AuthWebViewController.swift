@@ -15,42 +15,35 @@ class AuthWebViewController: OAuthWebViewController {
     
     private let callbackScheme: String
     
-    private var webView: WKWebView?
-    
+    private var webView: WKWebView { return self.view as! WKWebView }
     
     init(callbackScheme: String) {
 
         self.callbackScheme = callbackScheme
 
-        super.init(nibName: nil, bundle: Bundle(for: AuthWebViewController.self))
+        super.init(nibName: nil, bundle: nil)
         
         present = .asSheet
     }
     
     required init?(coder: NSCoder) {
+        
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func loadView() {
         
-        var f = self.view.frame
-        f.origin = .zero
-        let config = WKWebViewConfiguration()
-        let newWebView = WKWebView(frame: f, configuration: config)
-        newWebView.autoresizingMask = [.height, .width, .maxXMargin, .minXMargin, .maxYMargin, .minYMargin]
-        newWebView.navigationDelegate = self
-        self.view.addSubview(newWebView)
-        
-        webView = newWebView
+        view = WKWebView(frame: NSRect(x: 0, y: 0, width: 350, height: 550),
+                         configuration: WKWebViewConfiguration())
+        webView.navigationDelegate = self
     }
     
     override func handle(_ url: URL) {
+        
         super.handle(url)
         
-        webView?.load(URLRequest(url: url))
+        webView.load(URLRequest(url: url))
     }
-    
 }
 
 extension AuthWebViewController: WKNavigationDelegate {
@@ -71,6 +64,7 @@ extension AuthWebViewController: WKNavigationDelegate {
     }
     
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
+        
         print("\(error)")
         self.dismissWebViewController()
         // maybe cancel request...

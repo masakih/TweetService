@@ -21,7 +21,6 @@
 		F43A41F5216F9EDD00C1E712 /* OAuth1Swift-Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */; };
 		F43A41F6216F9F0A00C1E712 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */; };
 		F43A41F8216F9F2400C1E712 /* OAuthSwift.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F43A41F9216FA09400C1E712 /* AuthWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B79216A6A6C00D1A681 /* AuthWebViewController.xib */; };
 		F43A41FA216FA0C800C1E712 /* AuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */; };
 		F4612B562169E1CF00D1A681 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B552169E1CF00D1A681 /* AppDelegate.swift */; };
 		F4612B582169E1D100D1A681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4612B572169E1D100D1A681 /* Assets.xcassets */; };
@@ -83,7 +82,6 @@
 		F4612B74216A4EFC00D1A681 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthSwiftClient-Future.swift"; sourceTree = "<group>"; };
 		F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWebViewController.swift; sourceTree = "<group>"; };
-		F4612B79216A6A6C00D1A681 /* AuthWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AuthWebViewController.xib; sourceTree = "<group>"; };
 		F4612B7D216AE2E000D1A681 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		F4612B7F216AEDE700D1A681 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		F4612B80216AEDE700D1A681 /* ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ViewController.xib; sourceTree = "<group>"; };
@@ -126,7 +124,6 @@
 				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
 				F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */,
 				F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */,
-				F4612B79216A6A6C00D1A681 /* AuthWebViewController.xib */,
 				F4612B74216A4EFC00D1A681 /* Future.swift */,
 				F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */,
 				F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */,
@@ -279,7 +276,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43A41EE216F9EBC00C1E712 /* TweetPanelController.xib in Resources */,
-				F43A41F9216FA09400C1E712 /* AuthWebViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
