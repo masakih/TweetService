@@ -30,11 +30,6 @@ class ViewController: NSViewController {
         tweetService?.delegate = self
     }
     
-    @IBAction private func authorize(_: Any) {
-        
-//        tweetService?.authorize(parent: self)
-    }
-    
     @IBAction private func test(_: Any) {
         
     }
