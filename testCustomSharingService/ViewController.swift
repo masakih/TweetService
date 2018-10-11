@@ -32,7 +32,7 @@ class ViewController: NSViewController {
     
     @IBAction private func authorize(_: Any) {
         
-        tweetService?.authorize(parent: self)
+//        tweetService?.authorize(parent: self)
     }
     
     @IBAction private func test(_: Any) {
@@ -150,5 +150,10 @@ extension ViewController: TweetServiceDelegate {
     func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow? {
         
         return self.view.window
+    }
+    
+    func tweetSetviceAuthorizeSheetPearent(_ service: TweetService) -> NSViewController? {
+        
+        return self
     }
 }

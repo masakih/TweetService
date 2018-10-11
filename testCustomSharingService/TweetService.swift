@@ -25,6 +25,8 @@ public protocol TweetServiceDelegate: class {
     
     
     func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow?
+    
+    func tweetSetviceAuthorizeSheetPearent(_ service: TweetService) -> NSViewController?
 }
 
 public enum TweetServiceError: Error {
@@ -89,6 +91,8 @@ public class TweetService {
     
     private var oauthswift: OAuth1Swift
     
+    private var didAuthrized = false
+    
     private let webViewController: AuthWebViewController
     
     private let tweetPanelProvider = TweetPanelProvider()
@@ -112,30 +116,6 @@ public class TweetService {
         
     }
     
-    public func authorize(parent viewController: NSViewController?) {
-        
-        oauthswift.authorizeURLHandler = webViewController
-        webViewController.delegate = self
-        viewController?.addChildViewController(webViewController)
-        
-        oauthswift
-            .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
-            .onSuccess { _,_,_ in self.delegate?.tweetService(didSuccessAuthorize: self) }
-            .onFailure { error in
-                
-                // error is always OAuthSwiftError.
-                let error = error as! OAuthSwiftError
-                
-                if case .missingToken = error {
-                    
-                    self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
-                                                      consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
-                }
-                
-                self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
-        }
-    }
-    
     public func sharingServicePicker(_ items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService] {
         
         guard canTweet(items: items) else { return proposedServices }
@@ -150,10 +130,51 @@ public class TweetService {
     
     private func tweet(items: [Any]) {
         
+        guard didAuthrized else {
+            
+            authorizeAndTweet(items)
+            
+            return
+        }
+        
         tweetPanelProvider
             .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
             .onSuccess { items in self.tweetFromPanel(items: items) }
             .onFailure { _ in self.delegate?.tweetServiveDidCancel(self) }
+    }
+    
+    private func authorizeAndTweet(_ items: [Any]) {
+        
+        oauthswift.authorizeURLHandler = webViewController
+        webViewController.delegate = self
+        delegate?.tweetSetviceAuthorizeSheetPearent(self)?.addChildViewController(webViewController)
+        
+        oauthswift
+            .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
+            .onSuccess { _,_,_ in
+                
+                self.didAuthrized = true
+                self.delegate?.tweetService(didSuccessAuthorize: self)
+                
+                self.tweet(items: items)
+            }
+            .onFailure { error in
+                
+                // error is always OAuthSwiftError.
+                let error = error as! OAuthSwiftError
+                
+                if case .missingToken = error {
+                    
+                    self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
+                                                      consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
+                    
+                    self.delegate?.tweetServiveDidCancel(self)
+                    
+                    return
+                }
+                
+                self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
+        }
     }
     
     private func tweetFromPanel(items: [Any]) {
