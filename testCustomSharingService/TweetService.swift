@@ -32,6 +32,8 @@ public enum TweetServiceError: Error {
     case jsonNotDictionary
     
     case notContainsMediaId
+    
+    case twitterError(message: String, code: Int)
 }
 
 private func defaultServiceImage() -> NSImage {
@@ -60,6 +62,25 @@ private func makeOAuth1Swift(consumerKey: String, consumerSecretKey: String) -> 
         authorizeUrl: "https://api.twitter.com/oauth/authenticate",
         accessTokenUrl: "https://api.twitter.com/oauth/access_token"
     )
+}
+
+private func twitterError(_ error: Error) -> (message: String, code: Int)? {
+    
+    if let aouthError = error as? OAuthSwiftError,
+        case let .requestError(nserror as NSError, _) = aouthError,
+        let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
+        let json = try? JSONSerialization.jsonObject(with: resData, options: .allowFragments) as? [String: Any],
+        let errors = json?["errors"] as? [[String: Any]],
+        let firstError = errors.first,
+        let message = firstError["message"] as? String,
+        let code = firstError["code"] as? Int {
+        
+        print("Twitter Error, message:", message, "code:", code)
+        
+        return (message, code)
+    }
+    
+    return nil
 }
 
 public class TweetService {
@@ -205,7 +226,17 @@ public class TweetService {
                     promise.failure(error)
                 }
             }
-            .onFailure { error in promise.failure(error) }
+            .onFailure { error in
+                
+                if let (message, code) = twitterError(error) {
+                    
+                    promise.failure(TweetServiceError.twitterError(message: message, code: code))
+                    
+                } else {
+                    
+                    promise.failure(error)
+                }
+        }
         
         return promise.future.flatMap(uploadImage)
     }
@@ -233,13 +264,22 @@ public class TweetService {
             }
             .onSuccess { _ in
                 
-                self.delegate?.tweetService(self, didPostItems: [text] + images)
+                self.delegate?.tweetService(didSuccessAuthorize: self)
             }
             .onFailure { error in
+                
+                if let (message, code) = twitterError(error) {
+                    
+                    self.delegate?.tweetService(self, didFailPostItems: [text] + images,
+                                                error: TweetServiceError.twitterError(message: message, code: code))
+                    
+                    return
+                }
                 
                 self.delegate?.tweetService(self, didFailPostItems: [text] + images, error: error)
         }
     }
+    
 }
 
 extension TweetService: OAuthWebViewControllerDelegate {
