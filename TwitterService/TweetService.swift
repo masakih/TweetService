@@ -29,6 +29,32 @@ public protocol TweetServiceDelegate: class {
     func tweetSetviceAuthorizeSheetPearent(_ service: TweetService) -> NSViewController?
 }
 
+public extension TweetServiceDelegate {
+    
+    func tweetService(didSuccessAuthorize: TweetService) {}
+    
+    func tweetService(_ service: TweetService, didFailAuthorizeWithError error: Error) {}
+    
+    func tweetService(_ service: TweetService, willPostItems items: [Any]) {}
+    
+    func tweetService(_ service: TweetService, didPostItems items: [Any]) {}
+    
+    func tweetServiveDidCancel(_ service: TweetService) {}
+    
+    func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error) {}
+    
+    
+    func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow? {
+        
+        return nil
+    }
+    
+    func tweetSetviceAuthorizeSheetPearent(_ service: TweetService) -> NSViewController? {
+        
+        return nil
+    }
+}
+
 public enum TweetServiceError: Error {
     
     case jsonNotDictionary
