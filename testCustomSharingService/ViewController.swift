@@ -124,9 +124,9 @@ extension ViewController: NSSharingServiceDelegate {
 extension ViewController: TweetServiceDelegate {
     
     func tweetService(didSuccessAuthorize: TweetService) {}
-    
+
     func tweetService(_ service: TweetService, didFailAuthorizeWithError error: Error) {
-        
+
         print("Authorize Error:", error)
     }
     
@@ -140,17 +140,17 @@ extension ViewController: TweetServiceDelegate {
     func tweetServiveDidCancel(_ service: TweetService) {}
     
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error) {
-        
+
         print("Tweet Error:", error)
     }
     
     func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow? {
-        
+
         return self.view.window
     }
     
     func tweetSetviceAuthorizeSheetPearent(_ service: TweetService) -> NSViewController? {
-        
+
         return self
     }
 }

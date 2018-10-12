@@ -143,11 +143,26 @@ public class TweetService {
             .onFailure { _ in self.delegate?.tweetServiveDidCancel(self) }
     }
     
+    private func authorizePanelParent(for items: [Any]) -> NSViewController {
+        
+        if let viewController = self.delegate?.tweetSetviceAuthorizeSheetPearent(self) {
+            
+            return viewController
+        }
+        
+        if let viewController = self.delegate?.tweetService(self, sourceWindowForShareItems: items)?.contentViewController {
+            
+            return viewController
+        }
+        
+        fatalError("TweetServiceDelegate must provide tweetSetviceAuthorizeSheetPearent or sourceWindowForShareItems must has contentViewController")
+    }
+    
     private func authorizeAndTweet(_ items: [Any]) {
         
         oauthswift.authorizeURLHandler = webViewController
         webViewController.delegate = self
-        delegate?.tweetSetviceAuthorizeSheetPearent(self)?.addChildViewController(webViewController)
+        authorizePanelParent(for: items).addChildViewController(webViewController)
         
         oauthswift
             .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
