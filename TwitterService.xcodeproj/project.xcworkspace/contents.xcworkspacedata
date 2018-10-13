@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/masaki/Project/Test &amp; Sample/testCustomSharingService/TwitterService.xcodeproj">
+      location = "self:TwitterService.xcodeproj">
    </FileRef>
 </Workspace>
