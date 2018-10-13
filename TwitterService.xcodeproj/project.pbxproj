@@ -21,6 +21,8 @@
 		F43A41F6216F9F0A00C1E712 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */; };
 		F43A41F8216F9F2400C1E712 /* OAuthSwift.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F43A41FA216FA0C800C1E712 /* AuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */; };
+		F449525C21722EF800265630 /* TwitterText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F449525B21722EF800265630 /* TwitterText.framework */; };
+		F44952A6217230B300265630 /* TwitterText.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F44952A5217230B300265630 /* TwitterText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4612B562169E1CF00D1A681 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B552169E1CF00D1A681 /* AppDelegate.swift */; };
 		F4612B582169E1D100D1A681 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4612B572169E1D100D1A681 /* Assets.xcassets */; };
 		F4612B5B2169E1D100D1A681 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B592169E1D100D1A681 /* MainMenu.xib */; };
@@ -49,6 +51,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F43A41F8216F9F2400C1E712 /* OAuthSwift.framework in Copy Framework */,
+				F44952A6217230B300265630 /* TwitterText.framework in Copy Framework */,
 			);
 			name = "Copy Framework";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -72,6 +75,8 @@
 		F43A41DF216F9E7F00C1E712 /* TwitterService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TwitterService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43A41E1216F9E7F00C1E712 /* TwitterService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterService.h; sourceTree = "<group>"; };
 		F43A41E2216F9E7F00C1E712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F449525B21722EF800265630 /* TwitterText.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TwitterText.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F44952A5217230B300265630 /* TwitterText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterText.framework; path = "../../Library/Developer/Xcode/DerivedData/TwitterService-fxewwdxyudxcughbmfjwxrxkoeft/Build/Products/Debug/TwitterText.framework"; sourceTree = "<group>"; };
 		F4612B522169E1CF00D1A681 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4612B552169E1CF00D1A681 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4612B572169E1D100D1A681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,6 +104,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43A41F6216F9F0A00C1E712 /* OAuthSwift.framework in Frameworks */,
+				F449525C21722EF800265630 /* TwitterText.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -139,6 +145,7 @@
 				F43A41E0216F9E7F00C1E712 /* TwitterService */,
 				F4612B542169E1CF00D1A681 /* Demo */,
 				F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */,
+				F44952A5217230B300265630 /* TwitterText.framework */,
 				F4612B532169E1CF00D1A681 /* Products */,
 				F4612B7C216AE2DF00D1A681 /* Frameworks */,
 			);
@@ -172,6 +179,7 @@
 			isa = PBXGroup;
 			children = (
 				F4612B7D216AE2E000D1A681 /* WebKit.framework */,
+				F449525B21722EF800265630 /* TwitterText.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

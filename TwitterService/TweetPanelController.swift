@@ -8,6 +8,8 @@
 
 import Cocoa
 
+import TwitterText
+
 
 // MARK: - TweetPanelController
 
@@ -15,6 +17,14 @@ class TweetPanelController: NSWindowController {
     
     
     // MARK: Internal
+    
+    private lazy var twitterTextParser: TwitterTextParser = {
+        
+        let t = TwitterTextParser.defaultParser()
+        
+        return t
+        
+    }()
     
     var string: String {
         
@@ -78,7 +88,9 @@ class TweetPanelController: NSWindowController {
         
         let tweetSting = text.string
         
-        count = 280 - tweetSting.utf8.count + images.count * 24
+        let tResult = twitterTextParser.parseTweet(tweetSting)
+                
+        count = 280 - tResult.weightedLength
     }
 }
 

@@ -150,7 +150,7 @@ extension ViewController: TweetServiceDelegate {
     
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error) {
 
-        print("Tweet Error:", error)
+        print("###### Tweet Error:", error)
     }
     
     func tweetService(_ service: TweetService, sourceWindowForShareItems items: [Any]) -> NSWindow? {
