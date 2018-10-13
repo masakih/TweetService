@@ -1,6 +1,6 @@
 //
 //  TweetPanelController.swift
-//  testCustomSharingService
+//  TwitterService
 //
 //  Created by Hori,Masaki on 2018/10/09.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.
@@ -8,14 +8,13 @@
 
 import Cocoa
 
+
+// MARK: - TweetPanelController
+
 class TweetPanelController: NSWindowController {
     
-    var images: [NSImage] = [] {
-        
-        didSet {
-            imageView?.images = images
-        }
-    }
+    
+    // MARK: Internal
     
     var string: String {
         
@@ -23,20 +22,17 @@ class TweetPanelController: NSWindowController {
         set { text = NSAttributedString(string: newValue) }
     }
     
+    var images: [NSImage] = [] {
+        
+        didSet { imageView?.images = images }
+    }
+    
     var completionHandler: ((TweetPanelController) -> Void)?
     
     var cancelHandler: ((TweetPanelController) -> Void)?
     
-    @objc dynamic private var text = NSAttributedString(string: "") {
-        
-        didSet { updateCount() }
-    }
     
-    @objc dynamic private var count: Int = 0
-    
-    @IBOutlet private weak var textView: NSTextView?
-    
-    @IBOutlet private weak var imageView: CascadeImageView?
+    // MARK: NSWindowController
     
     override var windowNibName: NSNib.Name {
         
@@ -44,17 +40,25 @@ class TweetPanelController: NSWindowController {
     }
 
     override func windowDidLoad() {
+        
         super.windowDidLoad()
         
         imageView?.images = self.images
     }
     
-    private func updateCount() {
+    
+    // MARK: Private
+    
+    @objc private dynamic var text = NSAttributedString(string: "") {
         
-        let tweetSting = text.string
-        
-        count = 280 - tweetSting.utf8.count + images.count * 24
+        didSet { updateCount() }
     }
+    
+    @objc private dynamic var count: Int = 0
+    
+    @IBOutlet private weak var textView: NSTextView?
+    
+    @IBOutlet private weak var imageView: CascadeImageView?
     
     @IBAction private func tweet(_: Any) {
                 
@@ -69,7 +73,17 @@ class TweetPanelController: NSWindowController {
         
         self.close()
     }
+    
+    private func updateCount() {
+        
+        let tweetSting = text.string
+        
+        count = 280 - tweetSting.utf8.count + images.count * 24
+    }
 }
+
+
+// MARK: - NSWindowDelegate
 
 extension TweetPanelController: NSWindowDelegate {
     

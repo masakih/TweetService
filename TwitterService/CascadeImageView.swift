@@ -1,6 +1,6 @@
 //
 //  CascadeImageView.swift
-//  testCustomSharingService
+//  TwitterService
 //
 //  Created by Hori,Masaki on 2018/10/09.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.
@@ -8,7 +8,15 @@
 
 import Cocoa
 
+
+// MARK: - CascadeImageView
+
 class CascadeImageView: NSView {
+    
+    
+    // MARK - Internal
+    
+    typealias ImageInfo = (image: NSImage, size: NSSize)
     
     var images: [NSImage] = []
     
@@ -16,21 +24,9 @@ class CascadeImageView: NSView {
     
 //    var direction: NSControl.ImagePosition = .imageRight
     
-    private static var imageShadow: NSShadow = {
-        
-        let shadow = NSShadow()
-        shadow.shadowOffset = NSSize(width: 4, height: -4)
-        shadow.shadowBlurRadius = 6
-        
-        return shadow
-    }()
     
-    private var imageShadow: NSShadow {
-        
-        return type(of: self).imageShadow
-    }
+    // MARK: NSView
     
-    typealias ImageInfo = (image: NSImage, size: NSSize)
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
         
@@ -62,5 +58,22 @@ class CascadeImageView: NSView {
                 
                 return imageOffset + 1
         }
+    }
+    
+    
+    // MARK: - Private
+    
+    private static var imageShadow: NSShadow = {
+        
+        let shadow = NSShadow()
+        shadow.shadowOffset = NSSize(width: 4, height: -4)
+        shadow.shadowBlurRadius = 6
+        
+        return shadow
+    }()
+    
+    private var imageShadow: NSShadow {
+        
+        return type(of: self).imageShadow
     }
 }

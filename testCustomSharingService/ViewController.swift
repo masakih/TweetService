@@ -124,21 +124,29 @@ extension ViewController: NSSharingServiceDelegate {
 extension ViewController: TweetServiceDelegate {
     
     
-//    func tweetService(didSuccessAuthorize: TweetService) {}
+    func tweetService(didSuccessAuthorize: TweetService) {
+        
+        print("###### Success Authorize.")
+    }
 
     func tweetService(_ service: TweetService, didFailAuthorizeWithError error: Error) {
 
-        print("Authorize Error:", error)
+        print("###### Authorize Error:", error)
     }
     
 //    func tweetService(_ service: TweetService, willPostItems items: [Any]) {}
     
     func tweetService(_ service: TweetService, didPostItems items: [Any]) {
         
+        print("###### didPostItems")
+        
         resetUI()
     }
     
-//    func tweetServiveDidCancel(_ service: TweetService) {}
+    func tweetServiveDidCancel(_ service: TweetService) {
+        
+        print("###### Tweet did cancel")
+    }
     
     func tweetService(_ service: TweetService, didFailPostItems items: [Any], error: Error) {
 

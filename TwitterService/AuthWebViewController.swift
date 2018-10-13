@@ -1,6 +1,6 @@
 //
 //  AuthWebViewController.swift
-//  testCustomSharingService
+//  TwitterService
 //
 //  Created by Hori,Masaki on 2018/10/08.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.
@@ -11,11 +11,13 @@ import WebKit
 
 import OAuthSwift
 
+
+// MARK: - AuthWebViewController
+
 class AuthWebViewController: OAuthWebViewController {
     
-    private let callbackScheme: String
     
-    private var webView: WKWebView { return self.view as! WKWebView }
+    // MARK: Internal
     
     init(callbackScheme: String) {
 
@@ -31,6 +33,9 @@ class AuthWebViewController: OAuthWebViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    // MARK: - NSViewController
+    
     override func loadView() {
         
         view = WKWebView(frame: NSRect(x: 0, y: 0, width: 350, height: 550),
@@ -38,13 +43,26 @@ class AuthWebViewController: OAuthWebViewController {
         webView.navigationDelegate = self
     }
     
+    
+    // MARK: - OAuthSwiftURLHandlerType
+    
     override func handle(_ url: URL) {
         
         super.handle(url)
         
         webView.load(URLRequest(url: url))
     }
+    
+    
+    // MARK: Private
+    
+    private var webView: WKWebView { return self.view as! WKWebView }
+    
+    private let callbackScheme: String
 }
+
+
+// MARK: - WKNavigationDelegate
 
 extension AuthWebViewController: WKNavigationDelegate {
     
@@ -84,5 +102,4 @@ extension AuthWebViewController: WKNavigationDelegate {
         self.dismissWebViewController()
         // maybe cancel request...
     }
-    
 }
