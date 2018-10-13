@@ -13,7 +13,6 @@
 		F43A41EB216F9E8800C1E712 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B85216B405A00D1A681 /* TweetService.swift */; };
 		F43A41EC216F9E8C00C1E712 /* TweetPanelProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */; };
 		F43A41ED216F9E8F00C1E712 /* TweetPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */; };
-		F43A41EE216F9EBC00C1E712 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */; };
 		F43A41EF216F9EC100C1E712 /* CascadeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */; };
 		F43A41F0216F9EC600C1E712 /* BlurWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */; };
 		F43A41F3216F9ED500C1E712 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B74216A4EFC00D1A681 /* Future.swift */; };
@@ -29,6 +28,7 @@
 		F4612B81216AEDE700D1A681 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B7F216AEDE700D1A681 /* ViewController.swift */; };
 		F4612B82216AEDE700D1A681 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B80216AEDE700D1A681 /* ViewController.xib */; };
 		F4612B88216B876C00D1A681 /* TwitterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B87216B876C00D1A681 /* TwitterKeys.swift */; };
+		F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,12 +72,12 @@
 		F43A41DF216F9E7F00C1E712 /* TwitterService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TwitterService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F43A41E1216F9E7F00C1E712 /* TwitterService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterService.h; sourceTree = "<group>"; };
 		F43A41E2216F9E7F00C1E712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4612B522169E1CF00D1A681 /* testCustomSharingService.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = testCustomSharingService.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F4612B522169E1CF00D1A681 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4612B552169E1CF00D1A681 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4612B572169E1D100D1A681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4612B5A2169E1D100D1A681 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F4612B5C2169E1D100D1A681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4612B5D2169E1D100D1A681 /* testCustomSharingService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = testCustomSharingService.entitlements; sourceTree = "<group>"; };
+		F4612B5D2169E1D100D1A681 /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
 		F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
 		F4612B74216A4EFC00D1A681 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthSwiftClient-Future.swift"; sourceTree = "<group>"; };
@@ -88,9 +88,9 @@
 		F4612B85216B405A00D1A681 /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
 		F4612B87216B876C00D1A681 /* TwitterKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitterKeys.swift; sourceTree = "<group>"; };
 		F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelController.swift; sourceTree = "<group>"; };
-		F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetPanelController.xib; sourceTree = "<group>"; };
 		F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeImageView.swift; sourceTree = "<group>"; };
 		F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurWindowController.swift; sourceTree = "<group>"; };
+		F4D942CD2171D1B200C89FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TweetPanelController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,7 +120,7 @@
 				F4612B85216B405A00D1A681 /* TweetService.swift */,
 				F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */,
 				F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */,
-				F4612B8C216CD50F00D1A681 /* TweetPanelController.xib */,
+				F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */,
 				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
 				F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */,
 				F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */,
@@ -137,7 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				F43A41E0216F9E7F00C1E712 /* TwitterService */,
-				F4612B542169E1CF00D1A681 /* testCustomSharingService */,
+				F4612B542169E1CF00D1A681 /* Demo */,
 				F4612B6D216A41DA00D1A681 /* OAuthSwift.framework */,
 				F4612B532169E1CF00D1A681 /* Products */,
 				F4612B7C216AE2DF00D1A681 /* Frameworks */,
@@ -147,13 +147,13 @@
 		F4612B532169E1CF00D1A681 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F4612B522169E1CF00D1A681 /* testCustomSharingService.app */,
+				F4612B522169E1CF00D1A681 /* Demo.app */,
 				F43A41DF216F9E7F00C1E712 /* TwitterService.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		F4612B542169E1CF00D1A681 /* testCustomSharingService */ = {
+		F4612B542169E1CF00D1A681 /* Demo */ = {
 			isa = PBXGroup;
 			children = (
 				F4612B552169E1CF00D1A681 /* AppDelegate.swift */,
@@ -163,9 +163,9 @@
 				F4612B572169E1D100D1A681 /* Assets.xcassets */,
 				F4612B592169E1D100D1A681 /* MainMenu.xib */,
 				F4612B5C2169E1D100D1A681 /* Info.plist */,
-				F4612B5D2169E1D100D1A681 /* testCustomSharingService.entitlements */,
+				F4612B5D2169E1D100D1A681 /* Demo.entitlements */,
 			);
-			path = testCustomSharingService;
+			path = Demo;
 			sourceTree = "<group>";
 		};
 		F4612B7C216AE2DF00D1A681 /* Frameworks */ = {
@@ -209,9 +209,9 @@
 			productReference = F43A41DF216F9E7F00C1E712 /* TwitterService.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		F4612B512169E1CF00D1A681 /* testCustomSharingService */ = {
+		F4612B512169E1CF00D1A681 /* Demo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F4612B602169E1D100D1A681 /* Build configuration list for PBXNativeTarget "testCustomSharingService" */;
+			buildConfigurationList = F4612B602169E1D100D1A681 /* Build configuration list for PBXNativeTarget "Demo" */;
 			buildPhases = (
 				F4612B4E2169E1CF00D1A681 /* Sources */,
 				F4612B4F2169E1CF00D1A681 /* Frameworks */,
@@ -223,9 +223,9 @@
 			dependencies = (
 				F43A41E5216F9E7F00C1E712 /* PBXTargetDependency */,
 			);
-			name = testCustomSharingService;
+			name = Demo;
 			productName = testCustomSharingService;
-			productReference = F4612B522169E1CF00D1A681 /* testCustomSharingService.app */;
+			productReference = F4612B522169E1CF00D1A681 /* Demo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -251,7 +251,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F4612B4D2169E1CF00D1A681 /* Build configuration list for PBXProject "testCustomSharingService" */;
+			buildConfigurationList = F4612B4D2169E1CF00D1A681 /* Build configuration list for PBXProject "TwitterService" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -264,7 +264,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F4612B512169E1CF00D1A681 /* testCustomSharingService */,
+				F4612B512169E1CF00D1A681 /* Demo */,
 				F43A41DE216F9E7F00C1E712 /* TwitterService */,
 			);
 		};
@@ -275,7 +275,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F43A41EE216F9EBC00C1E712 /* TweetPanelController.xib in Resources */,
+				F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -335,6 +335,14 @@
 				F4612B5A2169E1D100D1A681 /* Base */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F4D942CD2171D1B200C89FE2 /* Base */,
+			);
+			name = TweetPanelController.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -526,19 +534,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = testCustomSharingService/testCustomSharingService.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Demo/Demo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = testCustomSharingService/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.testCustomSharingService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -549,19 +557,19 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = testCustomSharingService/testCustomSharingService.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Demo/Demo.entitlements;
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 				);
-				INFOPLIST_FILE = testCustomSharingService/Info.plist;
+				INFOPLIST_FILE = Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.testCustomSharingService;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 			};
@@ -579,7 +587,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F4612B4D2169E1CF00D1A681 /* Build configuration list for PBXProject "testCustomSharingService" */ = {
+		F4612B4D2169E1CF00D1A681 /* Build configuration list for PBXProject "TwitterService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4612B5E2169E1D100D1A681 /* Debug */,
@@ -588,7 +596,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F4612B602169E1D100D1A681 /* Build configuration list for PBXNativeTarget "testCustomSharingService" */ = {
+		F4612B602169E1D100D1A681 /* Build configuration list for PBXNativeTarget "Demo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F4612B612169E1D100D1A681 /* Debug */,

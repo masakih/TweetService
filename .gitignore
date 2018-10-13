@@ -9,4 +9,4 @@ xcuserdata
 #Carthage
 Carthage
 
-/testCustomSharingService/TwitterKeys.swift
+TwitterKeys.swift
