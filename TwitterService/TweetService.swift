@@ -225,7 +225,41 @@ public class TweetService {
         let text = items.first{ item in item is String } as? String ?? ""
         let images = items.filter { item in item is NSImage } as? [NSImage] ?? []
         
-        postImages(text, images: images)
+        uploadImage(images: images)
+            .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
+                
+                let mediaIDsString = mediaIds.joined(separator: ",")
+                let params: OAuthSwift.Parameters
+                switch mediaIDsString {
+                    
+                case "": params = ["status": text]
+                    
+                default: params = ["status": text, "media_ids": mediaIDsString]
+                }
+                
+                return self.oauthswift
+                    .client
+                    .requestFuture("https://api.twitter.com/1.1/statuses/update.json",
+                                   method: .POST,
+                                   parameters: params)
+                    .future
+            }
+            .onSuccess { _ in
+                
+                self.delegate?.tweetService(self, didPostItems: items)
+            }
+            .onFailure { error in
+                
+                if let (message, code) = twitterError(error) {
+                    
+                    self.delegate?.tweetService(self, didFailPostItems: items,
+                                                error: TweetServiceError.twitterError(message: message, code: code))
+                    
+                    return
+                }
+                
+                self.delegate?.tweetService(self, didFailPostItems: items, error: error)
+        }
     }
     
     private func canTweet(items: [Any]) -> Bool {
@@ -302,46 +336,6 @@ public class TweetService {
         
         return promise.future.flatMap(uploadImage)
     }
-    
-    private func postImages(_ text: String, images: [NSImage]) {
-        
-        uploadImage(images: images)
-            .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
-                
-                let mediaIDsString = mediaIds.joined(separator: ",")
-                let params: OAuthSwift.Parameters
-                switch mediaIDsString {
-                    
-                case "": params = ["status": text]
-                    
-                default: params = ["status": text, "media_ids": mediaIDsString]
-                }
-                
-                return self.oauthswift
-                    .client
-                    .requestFuture("https://api.twitter.com/1.1/statuses/update.json",
-                                   method: .POST,
-                                   parameters: params)
-                    .future
-            }
-            .onSuccess { _ in
-                
-                self.delegate?.tweetService(didSuccessAuthorize: self)
-            }
-            .onFailure { error in
-                
-                if let (message, code) = twitterError(error) {
-                    
-                    self.delegate?.tweetService(self, didFailPostItems: [text] + images,
-                                                error: TweetServiceError.twitterError(message: message, code: code))
-                    
-                    return
-                }
-                
-                self.delegate?.tweetService(self, didFailPostItems: [text] + images, error: error)
-        }
-    }
-    
 }
 
 extension TweetService: OAuthWebViewControllerDelegate {
