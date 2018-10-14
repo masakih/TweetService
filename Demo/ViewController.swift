@@ -65,10 +65,8 @@ class ViewController: NSViewController {
 extension ViewController: NSSharingServicePickerDelegate {
     
     func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, sharingServicesForItems items: [Any], proposedSharingServices proposedServices: [NSSharingService]) -> [NSSharingService] {
-        
-        guard let tweetService = self.tweetService else { return proposedServices }
-        
-        return tweetService.sharingServicePicker(items, proposedSharingServices: proposedServices)
+                
+        return tweetService?.sharingServicePicker(items, proposedSharingServices: proposedServices) ?? proposedServices
     }
     
     func sharingServicePicker(_ sharingServicePicker: NSSharingServicePicker, delegateFor sharingService: NSSharingService) -> NSSharingServiceDelegate? {
