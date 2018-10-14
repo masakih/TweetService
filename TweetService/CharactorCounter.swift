@@ -1,6 +1,6 @@
 //
 //  CharactorCounter.swift
-//  TwitterService
+//  TweetService
 //
 //  Created by Hori,Masaki on 2018/10/14.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.

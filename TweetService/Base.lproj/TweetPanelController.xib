@@ -5,7 +5,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <customObject id="-2" userLabel="File's Owner" customClass="TweetPanelController" customModule="TwitterService" customModuleProvider="target">
+        <customObject id="-2" userLabel="File's Owner" customClass="TweetPanelController" customModule="TweetService" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="luz-kG-Fdg" id="V2U-SZ-Xke"/>
                 <outlet property="progress" destination="TSj-gx-uHG" id="Q0y-uA-86D"/>
@@ -53,7 +53,7 @@ Gw
                             <action selector="cancel:" target="-2" id="gWR-CZ-3zW"/>
                         </connections>
                     </button>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luz-kG-Fdg" customClass="CascadeImageView" customModule="TwitterService" customModuleProvider="target">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luz-kG-Fdg" customClass="CascadeImageView" customModule="TweetService" customModuleProvider="target">
                         <rect key="frame" x="289" y="111" width="98" height="98"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     </customView>
@@ -91,7 +91,7 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSj-gx-uHG" customClass="CharactorCounter" customModule="TwitterService" customModuleProvider="target">
+                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSj-gx-uHG" customClass="CharactorCounter" customModule="TweetService" customModuleProvider="target">
                         <rect key="frame" x="289" y="45" width="98" height="50"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     </customView>

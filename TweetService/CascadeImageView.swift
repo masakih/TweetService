@@ -1,6 +1,6 @@
 //
 //  CascadeImageView.swift
-//  TwitterService
+//  TweetService
 //
 //  Created by Hori,Masaki on 2018/10/09.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.

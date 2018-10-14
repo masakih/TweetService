@@ -1,6 +1,6 @@
 //
 //  TweetService.swift
-//  TwitterService
+//  TweetService
 //
 //  Created by Hori,Masaki on 2018/10/08.
 //  Copyright © 2018 Hori,Masaki. All rights reserved.
@@ -79,7 +79,7 @@ public class TweetService {
     
     // MARK: Public
     
-    public var seriviceName: String = "Twitter"
+    public var seriviceName: String = "Tweet"
     
     public var serviceImage: NSImage = defaultServiceImage()
     

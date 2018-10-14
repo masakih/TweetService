@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; };
 		F42CF65221737CDB00D8AB75 /* OAuthSwift.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F43A41E3216F9E7F00C1E712 /* TwitterService.h in Headers */ = {isa = PBXBuildFile; fileRef = F43A41E1216F9E7F00C1E712 /* TwitterService.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		F43A41E3216F9E7F00C1E712 /* TweetService.h in Headers */ = {isa = PBXBuildFile; fileRef = F43A41E1216F9E7F00C1E712 /* TweetService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F43A41E6216F9E7F00C1E712 /* TweetService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; };
 		F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F43A41EB216F9E8800C1E712 /* TweetService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B85216B405A00D1A681 /* TweetService.swift */; };
@@ -40,7 +40,7 @@
 			containerPortal = F4612B4A2169E1CF00D1A681 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = F43A41DE216F9E7F00C1E712;
-			remoteInfo = TwitterService;
+			remoteInfo = TweetService;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -74,7 +74,7 @@
 		F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelProvider.swift; sourceTree = "<group>"; };
 		F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth1Swift-Future.swift"; sourceTree = "<group>"; };
 		F43A41DF216F9E7F00C1E712 /* TweetService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TweetService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F43A41E1216F9E7F00C1E712 /* TwitterService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TwitterService.h; sourceTree = "<group>"; };
+		F43A41E1216F9E7F00C1E712 /* TweetService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TweetService.h; sourceTree = "<group>"; };
 		F43A41E2216F9E7F00C1E712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F44952A72172CADD00265630 /* CharactorCounter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactorCounter.swift; sourceTree = "<group>"; };
 		F44952AC21737B2F00265630 /* TwitterText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterText.framework; path = Carthage/Build/Mac/TwitterText.framework; sourceTree = "<group>"; };
@@ -135,7 +135,7 @@
 				F4612B74216A4EFC00D1A681 /* Future.swift */,
 				F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */,
 				F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */,
-				F43A41E1216F9E7F00C1E712 /* TwitterService.h */,
+				F43A41E1216F9E7F00C1E712 /* TweetService.h */,
 				F43A41E2216F9E7F00C1E712 /* Info.plist */,
 			);
 			path = TweetService;
@@ -192,7 +192,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F43A41E3216F9E7F00C1E712 /* TwitterService.h in Headers */,
+				F43A41E3216F9E7F00C1E712 /* TweetService.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -214,7 +214,7 @@
 			dependencies = (
 			);
 			name = TweetService;
-			productName = TwitterService;
+			productName = TweetService;
 			productReference = F43A41DF216F9E7F00C1E712 /* TweetService.framework */;
 			productType = "com.apple.product-type.framework";
 		};
