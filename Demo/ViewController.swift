@@ -8,7 +8,7 @@
 
 import Cocoa
 
-import TwitterService
+import TweetService
 
 class ViewController: NSViewController {
     

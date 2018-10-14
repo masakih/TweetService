@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:TwitterService.xcodeproj">
+      location = "group:TweetService.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:twitter-text/objc/TwitterText.xcodeproj">
