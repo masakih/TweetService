@@ -38,6 +38,8 @@ class ViewController: NSViewController {
 
 `TweetServiceDelegate`Protocolに準拠。
 
+ツイートパネルのparentViewControllerとなれるNSViewControllerを返す。
+
 ```swift
 extension ViewController: TweetServiceDelegate {
 
