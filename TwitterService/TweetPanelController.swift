@@ -42,6 +42,11 @@ class TweetPanelController: NSWindowController {
     var cancelHandler: ((TweetPanelController) -> Void)?
     
     
+    deinit {
+        
+        progress?.unbind(NSBindingName("current"))
+    }
+    
     // MARK: NSWindowController
     
     override var windowNibName: NSNib.Name {
@@ -54,6 +59,12 @@ class TweetPanelController: NSWindowController {
         super.windowDidLoad()
         
         imageView?.images = self.images
+        
+        progress?.max = 280
+        progress?.bind(NSBindingName("current"),
+                       to: self,
+                       withKeyPath: "count",
+                       options: nil)
     }
     
     
@@ -69,6 +80,8 @@ class TweetPanelController: NSWindowController {
     @IBOutlet private weak var textView: NSTextView?
     
     @IBOutlet private weak var imageView: CascadeImageView?
+    
+    @IBOutlet private weak var progress: CharactorCounter?
     
     @IBAction private func tweet(_: Any) {
                 
