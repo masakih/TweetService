@@ -267,9 +267,9 @@ public class TweetService {
             .client
             .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
             .future
-            .onSuccess { response in
+            .flatMap { response -> Future<([NSImage], [String])> in
                 
-                do {
+                Future {
                     
                     let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments)
                     guard let dict = json as? [String: Any] else {
@@ -282,13 +282,10 @@ public class TweetService {
                         throw TweetServiceError.notContainsMediaId
                     }
                     
-                    promise.success((Array(images.dropFirst()) , mediaIds + [mediaId]))
-                    
-                } catch {
-                    
-                    promise.failure(error)
+                    return (Array(images.dropFirst()) , mediaIds + [mediaId])
                 }
             }
+            .onSuccess { result in promise.success(result) }
             .onFailure { error in
                 
                 if let (message, code) = twitterError(error) {
