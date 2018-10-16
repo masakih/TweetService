@@ -20,27 +20,16 @@ class TweetPanelController: NSWindowController {
     
     private lazy var twitterTextParser: TwitterTextParser = {
         
-        let t = TwitterTextParser.defaultParser()
-        
-        return t
+        TwitterTextParser.defaultParser()
         
     }()
     
-    var string: String {
-        
-        get { return text.string }
-        set { text = NSAttributedString(string: newValue) }
-    }
+    var string: String { return text.string }
     
     var images: [NSImage] = [] {
         
         didSet { imageView?.images = images }
     }
-    
-    var completionHandler: ((TweetPanelController) -> Void)?
-    
-    var cancelHandler: ((TweetPanelController) -> Void)?
-    
     
     deinit {
         
@@ -67,6 +56,24 @@ class TweetPanelController: NSWindowController {
                        options: nil)
     }
     
+    /// Show Tweet Panel.
+    ///
+    /// - Parameters:
+    ///   - string: initial string
+    ///   - images: initial images
+    /// - Returns: Future of OperationResult of TweetPanelController. This future will be always success.
+    func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>> {
+        
+        text = NSAttributedString(string: string)
+        self.images = images
+        
+        promise = Promise()
+        
+        showWindow(nil)
+        
+        return promise!.future
+    }
+    
     
     // MARK: Private
     
@@ -83,16 +90,18 @@ class TweetPanelController: NSWindowController {
     
     @IBOutlet private weak var progress: CharactorCounter?
     
+    private var promise: Promise<OperationResult<TweetPanelController>>?
+    
     @IBAction private func tweet(_: Any) {
-                
-        completionHandler?(self)
+        
+        promise?.complete(.value(OperationResult(complete: self)))
         
         self.close()
     }
     
     @IBAction private func cancel(_: Any) {
         
-        cancelHandler?(self)
+        promise?.complete(.value(OperationResult(cancel: self)))
         
         self.close()
     }

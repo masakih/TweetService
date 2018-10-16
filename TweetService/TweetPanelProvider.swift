@@ -24,45 +24,34 @@ class TweetPanelProvider {
     
     // MARK: Internal
     
-    func showTweetPanel(_ sourceWindow: NSWindow?, shareItems items: [Any], completionHandler: @escaping ([Any]) -> Void, cancelHandler: @escaping () -> Void) {
-        
-        tweetPanelController = TweetPanelController()
-        
-        guard let panelController = tweetPanelController else { return }
-        
-        panelController.string = items.first { item in item is String } as? String ?? ""
-        panelController.images = items.filter { item in item is NSImage } as? [NSImage] ?? []
-        
-        panelController.completionHandler = { tController in
-            
-            completionHandler(tController.images + [tController.string])
-            
-            self.closeBlurIfNeed(sourceWindow, tweetPanelController: tController)
-            
-            self.tweetPanelController = nil
-        }
-        
-        panelController.cancelHandler = { tController in
-            
-            cancelHandler()
-            
-            self.closeBlurIfNeed(sourceWindow, tweetPanelController: tController)
-            
-            self.tweetPanelController = nil
-        }
-        
-        showBlurIfNeed(sourceWindow, tweetPanelController: panelController)
-        panelController.showWindow(self)
-    }
-    
     func showTweetPanelFuture(_ sourceWindow: NSWindow?, shareItems items: [Any]) -> Future<[Any]> {
         
         let promise = Promise<[Any]>()
         
-        showTweetPanel(sourceWindow,
-                       shareItems: items,
-                       completionHandler: { items in promise.success(items) },
-                       cancelHandler: { promise.failure(TweetPanelProviderError.userCancel) })
+        tweetPanelController = TweetPanelController()
+        
+        guard let panelController = tweetPanelController else {
+            
+            fatalError("Could not create TweetPanelController.")
+        }
+        
+        showBlurIfNeed(sourceWindow, tweetPanelController: panelController)
+        panelController.showPanel(string: items.first { item in item is String } as? String ?? "",
+                                  images: items.filter { item in item is NSImage } as? [NSImage] ?? [])
+            .onSuccess { result in
+                
+                let tController = result.host
+                
+                switch result.status {
+                    
+                case .complete: promise.success(tController.images + [tController.string])
+                    
+                case .cancel: promise.failure(TweetPanelProviderError.userCancel)
+                }
+                
+                self.closeBlurIfNeed(sourceWindow, tweetPanelController: tController)
+                self.tweetPanelController = nil
+        }
         
         return promise.future
     }
