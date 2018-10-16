@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; };
 		F42CF65221737CDB00D8AB75 /* OAuthSwift.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F42CF6542174D46A00D8AB75 /* OperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF6532174D46A00D8AB75 /* OperationResult.swift */; };
 		F43A41E3216F9E7F00C1E712 /* TweetService.h in Headers */ = {isa = PBXBuildFile; fileRef = F43A41E1216F9E7F00C1E712 /* TweetService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F43A41E6216F9E7F00C1E712 /* TweetService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; };
 		F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -71,6 +72,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F42CF6532174D46A00D8AB75 /* OperationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationResult.swift; sourceTree = "<group>"; };
 		F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelProvider.swift; sourceTree = "<group>"; };
 		F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth1Swift-Future.swift"; sourceTree = "<group>"; };
 		F43A41DF216F9E7F00C1E712 /* TweetService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TweetService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +129,7 @@
 				F4612B85216B405A00D1A681 /* TweetService.swift */,
 				F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */,
 				F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */,
+				F42CF6532174D46A00D8AB75 /* OperationResult.swift */,
 				F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */,
 				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
 				F44952A72172CADD00265630 /* CharactorCounter.swift */,
@@ -313,6 +316,7 @@
 				F43A41EF216F9EC100C1E712 /* CascadeImageView.swift in Sources */,
 				F43A41F4216F9ED900C1E712 /* OAuthSwiftClient-Future.swift in Sources */,
 				F43A41F0216F9EC600C1E712 /* BlurWindowController.swift in Sources */,
+				F42CF6542174D46A00D8AB75 /* OperationResult.swift in Sources */,
 				F44952A82172CADD00265630 /* CharactorCounter.swift in Sources */,
 				F43A41FA216FA0C800C1E712 /* AuthWebViewController.swift in Sources */,
 			);
