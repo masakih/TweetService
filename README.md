@@ -92,3 +92,19 @@ extension ViewController {
 ```
 
 以上、たったこれだけであなたのアプリケーションからツイートが出来るようになります。
+
+
+# Demo.appの使い方
+
+## TwitterKeys.swiftを作成してプロジェクトに追加する必要があります
+
+以下を参考にしてください。
+
+```swift
+let twitterKeys: TwitterKeys = (
+    "customScheme",                      // Twitter app のカスタムスキーム
+    "**************",                    // Twitter app の Consumer Key (API Key)
+    "********************************"   // Twitter app の Consumer Secret (API Secret)
+)
+```
+
