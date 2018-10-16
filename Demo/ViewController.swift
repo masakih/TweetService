@@ -10,6 +10,10 @@ import Cocoa
 
 import TweetService
 
+
+typealias TwitterKeys = (customScheme: String, consumerKey: String, consumerSecret: String)
+
+
 class ViewController: NSViewController {
     
     @IBOutlet private weak var imageView: NSImageView?
@@ -28,7 +32,9 @@ class ViewController: NSViewController {
         
         shareButton.sendAction(on: .leftMouseDown)
         
-        tweetService = TweetService(callbackScheme: "hmsharing", consumerKey: twitterKeys.consumerKey, consumerSecretKey: twitterKeys.consumerSecret)
+        tweetService = TweetService(callbackScheme: twitterKeys.customScheme,
+                                    consumerKey: twitterKeys.consumerKey,
+                                    consumerSecretKey: twitterKeys.consumerSecret)
         tweetService?.delegate = self
     }
     
