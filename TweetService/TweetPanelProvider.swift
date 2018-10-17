@@ -72,6 +72,7 @@ class TweetPanelProvider {
             let blurWindowController = BlurWindowController()
             blurWindowController.window?.addChildWindow(window, ordered: .below)
             blurWindowController.window?.setFrame(targetFrame, display: false)
+            blurWindowController.targetWindow = window
             blurWindowController.showWindow(self)
             
             var panelFrame = panelWindow.frame
