@@ -217,10 +217,7 @@ extension Future {
     func transform<U>(_ s: @escaping (Result<T>) -> Result<U>) ->Future<U> {
         
         return Promise()
-            .complete {
-                
-                self.await().value.map(s) ?? .error(FutureError.unsolvedFuture)
-            }
+            .complete { s(self.await().result!) }
             .future
     }
     
@@ -268,7 +265,12 @@ extension Future {
             
             do {
                 
-                return try result.error.map { error in .value(try s(error)) } ?? .error(FutureError.unsolvedFuture)
+                switch result {
+                    
+                case .value: return result
+                    
+                case let .error(err): return .value(try s(err))
+                }
                 
             } catch {
                 

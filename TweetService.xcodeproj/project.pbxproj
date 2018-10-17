@@ -10,6 +10,7 @@
 		F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; };
 		F42CF65221737CDB00D8AB75 /* OAuthSwift.framework in Copy Framework */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F42CF6542174D46A00D8AB75 /* OperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF6532174D46A00D8AB75 /* OperationResult.swift */; };
+		F42CF67E2176203200D8AB75 /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF67D2176203200D8AB75 /* FutureTests.swift */; };
 		F43A41E3216F9E7F00C1E712 /* TweetService.h in Headers */ = {isa = PBXBuildFile; fileRef = F43A41E1216F9E7F00C1E712 /* TweetService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F43A41E6216F9E7F00C1E712 /* TweetService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; };
 		F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -36,6 +37,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		F42CF6782176200500D8AB75 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F4612B4A2169E1CF00D1A681 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F4612B512169E1CF00D1A681;
+			remoteInfo = Demo;
+		};
 		F43A41E4216F9E7F00C1E712 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = F4612B4A2169E1CF00D1A681 /* Project object */;
@@ -73,6 +81,9 @@
 
 /* Begin PBXFileReference section */
 		F42CF6532174D46A00D8AB75 /* OperationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperationResult.swift; sourceTree = "<group>"; };
+		F42CF6732176200500D8AB75 /* TweetServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TweetServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F42CF6772176200500D8AB75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F42CF67D2176203200D8AB75 /* FutureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FutureTests.swift; path = "../../Test & Sample/testXCTest/testXCTestTests/FutureTests.swift"; sourceTree = "<group>"; };
 		F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelProvider.swift; sourceTree = "<group>"; };
 		F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuth1Swift-Future.swift"; sourceTree = "<group>"; };
 		F43A41DF216F9E7F00C1E712 /* TweetService.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TweetService.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -102,6 +113,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F42CF6702176200500D8AB75 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F43A41DB216F9E7F00C1E712 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -123,6 +141,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F42CF6742176200500D8AB75 /* TweetServiceTests */ = {
+			isa = PBXGroup;
+			children = (
+				F42CF67D2176203200D8AB75 /* FutureTests.swift */,
+				F42CF6772176200500D8AB75 /* Info.plist */,
+			);
+			path = TweetServiceTests;
+			sourceTree = "<group>";
+		};
 		F43A41E0216F9E7F00C1E712 /* TweetService */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +176,7 @@
 			children = (
 				F43A41E0216F9E7F00C1E712 /* TweetService */,
 				F4612B542169E1CF00D1A681 /* Demo */,
+				F42CF6742176200500D8AB75 /* TweetServiceTests */,
 				F4612B532169E1CF00D1A681 /* Products */,
 				F4612B7C216AE2DF00D1A681 /* Frameworks */,
 			);
@@ -159,6 +187,7 @@
 			children = (
 				F4612B522169E1CF00D1A681 /* Demo.app */,
 				F43A41DF216F9E7F00C1E712 /* TweetService.framework */,
+				F42CF6732176200500D8AB75 /* TweetServiceTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +231,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		F42CF6722176200500D8AB75 /* TweetServiceTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F42CF67A2176200500D8AB75 /* Build configuration list for PBXNativeTarget "TweetServiceTests" */;
+			buildPhases = (
+				F42CF66F2176200500D8AB75 /* Sources */,
+				F42CF6702176200500D8AB75 /* Frameworks */,
+				F42CF6712176200500D8AB75 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F42CF6792176200500D8AB75 /* PBXTargetDependency */,
+			);
+			name = TweetServiceTests;
+			productName = TweetServiceTests;
+			productReference = F42CF6732176200500D8AB75 /* TweetServiceTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F43A41DE216F9E7F00C1E712 /* TweetService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F43A41E8216F9E7F00C1E712 /* Build configuration list for PBXNativeTarget "TweetService" */;
@@ -246,10 +293,14 @@
 		F4612B4A2169E1CF00D1A681 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0940;
+				LastSwiftUpdateCheck = 1000;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Hori,Masaki";
 				TargetAttributes = {
+					F42CF6722176200500D8AB75 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = F4612B512169E1CF00D1A681;
+					};
 					F43A41DE216F9E7F00C1E712 = {
 						CreatedOnToolsVersion = 9.4.1;
 					};
@@ -278,11 +329,19 @@
 			targets = (
 				F4612B512169E1CF00D1A681 /* Demo */,
 				F43A41DE216F9E7F00C1E712 /* TweetService */,
+				F42CF6722176200500D8AB75 /* TweetServiceTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F42CF6712176200500D8AB75 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F43A41DD216F9E7F00C1E712 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -304,6 +363,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F42CF66F2176200500D8AB75 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F42CF67E2176203200D8AB75 /* FutureTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F43A41DA216F9E7F00C1E712 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,6 +402,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		F42CF6792176200500D8AB75 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F4612B512169E1CF00D1A681 /* Demo */;
+			targetProxy = F42CF6782176200500D8AB75 /* PBXContainerItemProxy */;
+		};
 		F43A41E5216F9E7F00C1E712 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = F43A41DE216F9E7F00C1E712 /* TweetService */;
@@ -362,6 +434,47 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F42CF67B2176200500D8AB75 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TweetServiceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.TweetServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Contents/MacOS/Demo";
+			};
+			name = Debug;
+		};
+		F42CF67C2176200500D8AB75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = TweetServiceTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.TweetServiceTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Demo.app/Contents/MacOS/Demo";
+			};
+			name = Release;
+		};
 		F43A41E9216F9E7F00C1E712 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -592,6 +705,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F42CF67A2176200500D8AB75 /* Build configuration list for PBXNativeTarget "TweetServiceTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F42CF67B2176200500D8AB75 /* Debug */,
+				F42CF67C2176200500D8AB75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F43A41E8216F9E7F00C1E712 /* Build configuration list for PBXNativeTarget "TweetService" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

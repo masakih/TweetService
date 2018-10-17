@@ -61,7 +61,7 @@ class TweetPanelController: NSWindowController {
     /// - Parameters:
     ///   - string: initial string
     ///   - images: initial images
-    /// - Returns: Future of OperationResult of TweetPanelController. This future will be always success.
+    /// - Returns: Future of OperationResult of TweetPanelController. This future will always success.
     func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>> {
         
         text = NSAttributedString(string: string)
