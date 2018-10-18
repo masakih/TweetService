@@ -44,6 +44,12 @@ class BlurWindowController: NSWindowController {
     
     // MARK: Private
     
+    // 256 grayscale with alpha
+    typealias PixelWide = UInt16
+    let bytesPerPixel = 2
+    let bitsPerComponent = 8
+    let alphaMask: PixelWide = 0xff00
+    
     private var imageView: NSImageView {
         
         return window?.contentView as! NSImageView
@@ -58,7 +64,7 @@ class BlurWindowController: NSWindowController {
         
         return bitmap(image: image)
             .flatMap(toBlack)
-            .flatMap { RGBAImage(from: $0, width: image.width, height: image.height) }
+            .flatMap { grayscaleImage(from: $0, width: image.width, height: image.height) }
     }
     
     private func bitmap(image: CGImage) -> Data? {
@@ -66,8 +72,6 @@ class BlurWindowController: NSWindowController {
         let width = image.width
         let height = image.height
         
-        let bytesPerPixel = 4
-        let bitsPerComponent = 8
         let bytesPerRow = bytesPerPixel * width
         var pixelData = Data(count: height * bytesPerRow)
         pixelData.withUnsafeMutableBytes { (rawData: UnsafeMutablePointer<UInt8>) -> Void in
@@ -77,7 +81,7 @@ class BlurWindowController: NSWindowController {
                                     height: height,
                                     bitsPerComponent: bitsPerComponent,
                                     bytesPerRow: bytesPerRow,
-                                    space: image.colorSpace!,
+                                    space: CGColorSpaceCreateDeviceGray(),
                                     bitmapInfo: CGImageAlphaInfo.premultipliedLast.rawValue)!
             context.draw(image, in: CGRect(x: 0, y: 0, width: width, height: height))
         }
@@ -87,23 +91,23 @@ class BlurWindowController: NSWindowController {
     
     private func toBlack(data: Data) -> Data {
         
-        let size = data.count / 4
-        
-        let buffer = UnsafeMutablePointer<UInt32>.allocate(capacity: size)
-        defer { buffer.deallocate() }
-        
-        data.withUnsafeBytes { (pixel: UnsafePointer<UInt32>) -> Void in
+        return data.withUnsafeBytes { (pixel: UnsafePointer<PixelWide>) -> Data in
+            
+            let size = data.count / bytesPerPixel
+            
+            let buffer = UnsafeMutablePointer<PixelWide>.allocate(capacity: size)
+            defer { buffer.deallocate() }
             
             for i in 0..<size {
                 
-                buffer[i] = pixel[i] & 0xff000000
+                buffer[i] = pixel[i] & alphaMask
             }
+            
+            return Data(bytes: buffer, count: data.count)
         }
-        
-        return Data(bytes: buffer, count: data.count)
     }
     
-    private func RGBAImage(from data: Data, width: Int, height: Int) -> NSImage? {
+    private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage? {
         
         var p: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>.allocate(capacity: data.count)
         guard let pp = p else { return nil }
@@ -113,13 +117,13 @@ class BlurWindowController: NSWindowController {
         return NSBitmapImageRep(bitmapDataPlanes: &p,
                                 pixelsWide: width,
                                 pixelsHigh: height,
-                                bitsPerSample: 8,
-                                samplesPerPixel: 4,
+                                bitsPerSample: bitsPerComponent,
+                                samplesPerPixel: bytesPerPixel,
                                 hasAlpha: true,
                                 isPlanar: false,
-                                colorSpaceName: NSColorSpaceName.deviceRGB,
-                                bytesPerRow: 4 * width,
-                                bitsPerPixel: 32)
+                                colorSpaceName: NSColorSpaceName.deviceWhite,
+                                bytesPerRow: bytesPerPixel * width,
+                                bitsPerPixel: bytesPerPixel * bitsPerComponent)
             .flatMap { $0.tiffRepresentation }
             .flatMap { NSImage(data: $0) }
     }
