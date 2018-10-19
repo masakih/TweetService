@@ -1,0 +1,56 @@
+excluded:
+    - Carthage
+disabled_rules:
+    - leading_whitespace
+    - vertical_whitespace
+    - unused_optional_binding
+    - discarded_notification_center_observer
+    - todo
+    - block_based_kvo
+
+trailing_whitespace:
+    ignores_empty_lines: true
+    ignores_comments: true
+
+vertical_whitespace:
+    max_empty_lines: 2
+
+file_length:
+    warning: 1500
+    error: 3000
+
+line_length:
+    warning: 300
+    error: 500
+    ignores_function_declarations: true
+    ignores_comments: true
+
+type_body_length:
+    warning: 600
+    error: 1000
+
+function_body_length:
+    warning: 100
+    error: 200
+
+identifier_name:
+  max_length:
+    warning: 40
+    error: 60
+  min_length:
+    warning: 1
+
+large_tuple: 3
+
+cyclomatic_complexity:
+    warning: 25
+    error: 60
+
+
+custom_rules:
+        private_iboutlet:
+                regex: '@IBOutlet\s+(?!private[(\s])'
+        blank_before_return:
+                name: "Needs blank bfore return"
+                regex: '\S+\R[ \t]*return'
+                severity: error
