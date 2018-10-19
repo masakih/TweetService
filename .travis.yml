@@ -2,5 +2,6 @@ language: objective-c
 osx_image: xcode10
 
 script:
+    - carthage update --platform macOS
     - swiftlint
     - xcodebuild clean test -scheme Demo | xcpretty -f `xcpretty-travis-formatter`
