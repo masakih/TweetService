@@ -2,4 +2,5 @@ language: objective-c
 osx_image: xcode10
 
 script:
+    - swiftlint
     - xcodebuild clean test -scheme Demo | xcpretty -f `xcpretty-travis-formatter`
