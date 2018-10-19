@@ -5,7 +5,7 @@ Tweet sharing service for macOS
 [![Platform](https://img.shields.io/badge/Platform-macOS-lightgray.svg?style=flat)](https://img.shields.io/)
 [![License](https://img.shields.io/github/license/masakih/MovieCapture.svg?style=flat)](https://github.com/masakih/TweetService/blob/master/LICENSE)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-[![GitHub release](https://img.shields.io/github/release/masakih/MovieCapture.svg)](https://github.com/masakih/TweetService/releases/latest)
+[![GitHub release](https://img.shields.io/github/release/masakih/TweetService.svg)](https://github.com/masakih/TweetService/releases/latest)
 
 
 
