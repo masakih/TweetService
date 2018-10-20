@@ -71,10 +71,10 @@ final class Future<T> {
                 fatalError("set nil to result.")
             }
             
+            semaphore?.signal()
+            
             callbacks.forEach { f in f(result) }
             callbacks = []
-            
-            semaphore?.signal()
         }
     }
     
