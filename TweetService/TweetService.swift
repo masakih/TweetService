@@ -68,7 +68,19 @@ public enum TweetServiceError: Error {
     
     case notContainsMediaId
     
+    case tokenExpired
+    
+    case missingToken
+    
+    case authorizationPending
+    
+    case requestError(error: Error, request: URLRequest)
+    
     case twitterError(message: String, code: Int)
+    
+    case oauthSwiftError(OAuthSwiftError)
+    
+    case unknownError(Error)
 }
 
 
@@ -174,7 +186,7 @@ public class TweetService {
             .onFailure { error in
                 
                 // error is always OAuthSwiftError.
-                let error = error as! OAuthSwiftError
+                let error = convertError(error)
                 
                 if case .missingToken = error {
                     
@@ -237,6 +249,8 @@ public class TweetService {
             }
             .onFailure { error in
                 
+                let error = convertError(error)
+                
                 if let (message, code) = twitterError(error) {
                     
                     self.delegate?.tweetService(self, didFailPostItems: items,
@@ -286,17 +300,7 @@ public class TweetService {
                 }
             }
             .onSuccess { result in promise.success(result) }
-            .onFailure { error in
-                
-                if let (message, code) = twitterError(error) {
-                    
-                    promise.failure(TweetServiceError.twitterError(message: message, code: code))
-                    
-                } else {
-                    
-                    promise.failure(error)
-                }
-        }
+            .onFailure { error in promise.failure(error) }
         
         return promise.future.flatMap(uploadImage)
     }
@@ -347,23 +351,53 @@ private func makeOAuth1Swift(consumerKey: String, consumerSecretKey: String) -> 
     )
 }
 
-private func twitterError(_ error: Error) -> (message: String, code: Int)? {
+private func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
     
-    if let aouthError = error as? OAuthSwiftError,
-        case let .requestError(nserror as NSError, _) = aouthError,
+    if case let .requestError(nserror as NSError, _) = error,
         let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
         let json = try? JSONSerialization.jsonObject(with: resData, options: .allowFragments) as? [String: Any],
         let errors = json?["errors"] as? [[String: Any]],
         let firstError = errors.first,
         let message = firstError["message"] as? String,
         let code = firstError["code"] as? Int {
-        
-        print("Twitter Error, message:", message, "code:", code)
-        
+                
         return (message, code)
     }
     
     return nil
+}
+
+private func convertError(_ error: Error) -> TweetServiceError {
+    
+    guard let oauthError = error as? OAuthSwiftError else { return TweetServiceError.unknownError(error) }
+    
+    switch oauthError {
+        
+    case .configurationError: fatalError("unreached configurationError")
+        
+    case .tokenExpired: return TweetServiceError.tokenExpired
+        
+    case .missingState: fatalError("unreached missingState")
+        
+    case .stateNotEqual: fatalError("unreached stateNotEqual")
+        
+    case .serverError: fatalError("unreached serverError")
+        
+    case .encodingError: fatalError("unreached encodingError")
+        
+    case .authorizationPending: return TweetServiceError.authorizationPending
+        
+    case .requestCreation: fatalError("unreached requestCreation")
+        
+    case .missingToken: return TweetServiceError.missingToken
+        
+    case .retain: fatalError("unreached retain")
+        
+    case let .requestError(err, request): return TweetServiceError.requestError(error: err, request: request)
+        
+    case .cancelled: fatalError("unreached cancelled")
+        
+    }
 }
 
 
