@@ -19,7 +19,7 @@ enum TweetPanelProviderError: Error {
 
 // MARK: - TweetPanelProvider
 
-class TweetPanelProvider {
+final class TweetPanelProvider {
     
     
     // MARK: Internal

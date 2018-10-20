@@ -11,7 +11,7 @@ import Cocoa
 
 // MARK: - CascadeImageView
 
-class CascadeImageView: NSView {
+final class CascadeImageView: NSView {
     
     
     // MARK - Internal

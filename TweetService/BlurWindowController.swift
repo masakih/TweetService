@@ -11,7 +11,7 @@ import Cocoa
 
 // MARK: - BlurWindowController
 
-class BlurWindowController: NSWindowController {
+final class BlurWindowController: NSWindowController {
     
     
     // MARK: Internal

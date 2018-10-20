@@ -13,7 +13,7 @@ import TwitterText
 
 // MARK: - TweetPanelController
 
-class TweetPanelController: NSWindowController {
+final class TweetPanelController: NSWindowController {
     
     
     // MARK: Internal

@@ -11,7 +11,7 @@ import Cocoa
 
 // MARK: - CharactorCounter
 
-class CharactorCounter: NSView {
+final class CharactorCounter: NSView {
     
     
     // MARK: Internal

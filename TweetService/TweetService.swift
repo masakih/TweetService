@@ -86,7 +86,7 @@ public enum TweetServiceError: Error {
 
 // MARK: - TweetService
 
-public class TweetService {
+public final class TweetService {
     
     
     // MARK: Public

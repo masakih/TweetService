@@ -14,7 +14,7 @@ import OAuthSwift
 
 // MARK: - AuthWebViewController
 
-class AuthWebViewController: OAuthWebViewController {
+final class AuthWebViewController: OAuthWebViewController {
     
     
     // MARK: Internal
