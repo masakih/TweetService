@@ -60,30 +60,6 @@ public extension TweetServiceDelegate {
 }
 
 
-// MARK: - TweetServiceError
-
-public enum TweetServiceError: Error {
-    
-    case jsonNotDictionary
-    
-    case notContainsMediaId
-    
-    case tokenExpired
-    
-    case missingToken
-    
-    case authorizationPending
-    
-    case requestError(error: Error, request: URLRequest)
-    
-    case twitterError(message: String, code: Int)
-    
-    case oauthSwiftError(OAuthSwiftError)
-    
-    case unknownError(Error)
-}
-
-
 // MARK: - TweetService
 
 public final class TweetService {
@@ -352,56 +328,6 @@ private func parameter(text: String, mediaIds: [String]) -> OAuthSwift.Parameter
     default: return ["status": text, "media_ids": mediaIDsString]
     }
 }
-
-private func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
-    
-    if case let .requestError(nserror as NSError, _) = error,
-        let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
-        let json = try? JSONSerialization.jsonObject(with: resData, options: .allowFragments) as? [String: Any],
-        let errors = json?["errors"] as? [[String: Any]],
-        let firstError = errors.first,
-        let message = firstError["message"] as? String,
-        let code = firstError["code"] as? Int {
-                
-        return (message, code)
-    }
-    
-    return nil
-}
-
-private func convertError(_ error: Error) -> TweetServiceError {
-    
-    guard let oauthError = error as? OAuthSwiftError else { return TweetServiceError.unknownError(error) }
-    
-    switch oauthError {
-        
-    case .configurationError: fatalError("unreached configurationError")
-        
-    case .tokenExpired: return TweetServiceError.tokenExpired
-        
-    case .missingState: fatalError("unreached missingState")
-        
-    case .stateNotEqual: fatalError("unreached stateNotEqual")
-        
-    case .serverError: fatalError("unreached serverError")
-        
-    case .encodingError: fatalError("unreached encodingError")
-        
-    case .authorizationPending: return TweetServiceError.authorizationPending
-        
-    case .requestCreation: fatalError("unreached requestCreation")
-        
-    case .missingToken: return TweetServiceError.missingToken
-        
-    case .retain: fatalError("unreached retain")
-        
-    case let .requestError(err, request): return TweetServiceError.requestError(error: err, request: request)
-        
-    case .cancelled: fatalError("unreached cancelled")
-        
-    }
-}
-
 
 private func jpegData(_ image: NSImage) -> Data? {
     

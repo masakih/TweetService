@@ -31,6 +31,7 @@
 		F4612B81216AEDE700D1A681 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B7F216AEDE700D1A681 /* ViewController.swift */; };
 		F4612B82216AEDE700D1A681 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B80216AEDE700D1A681 /* ViewController.xib */; };
 		F4612B88216B876C00D1A681 /* TwitterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B87216B876C00D1A681 /* TwitterKeys.swift */; };
+		F4999593217C49910062FA20 /* TweetServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4999592217C49910062FA20 /* TweetServiceError.swift */; };
 		F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */; };
 		F4FECD0A2178BF67009B71BC /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FECD092178BF67009B71BC /* FutureTests.swift */; };
 /* End PBXBuildFile section */
@@ -106,6 +107,7 @@
 		F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelController.swift; sourceTree = "<group>"; };
 		F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeImageView.swift; sourceTree = "<group>"; };
 		F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurWindowController.swift; sourceTree = "<group>"; };
+		F4999592217C49910062FA20 /* TweetServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetServiceError.swift; sourceTree = "<group>"; };
 		F4D942CD2171D1B200C89FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TweetPanelController.xib; sourceTree = "<group>"; };
 		F4FECD092178BF67009B71BC /* FutureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -152,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				F4612B85216B405A00D1A681 /* TweetService.swift */,
+				F4999592217C49910062FA20 /* TweetServiceError.swift */,
 				F43A41D6216E485000C1E712 /* TweetPanelProvider.swift */,
 				F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */,
 				F42CF6532174D46A00D8AB75 /* OperationResult.swift */,
@@ -373,6 +376,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F43A41F5216F9EDD00C1E712 /* OAuth1Swift-Future.swift in Sources */,
+				F4999593217C49910062FA20 /* TweetServiceError.swift in Sources */,
 				F43A41EB216F9E8800C1E712 /* TweetService.swift in Sources */,
 				F43A41F3216F9ED500C1E712 /* Future.swift in Sources */,
 				F43A41EC216F9E8C00C1E712 /* TweetPanelProvider.swift in Sources */,
