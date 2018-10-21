@@ -56,9 +56,7 @@ final class CascadeImageView: NSView {
                                   y: dwarBounds.maxY - imageInfo.size.height - offset.height * imageOffset,
                                   width: imageInfo.size.width,
                                   height: imageInfo.size.height)
-                
-                print(rect)
-                
+                                
                 imageInfo.image.draw(in: rect)
                 
                 return imageOffset + 1
