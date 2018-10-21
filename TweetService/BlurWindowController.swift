@@ -14,7 +14,7 @@ import Cocoa
 final class BlurWindowController: NSWindowController {
     
     
-    // MARK: Internal
+    // MARK: - Internal
     
     var targetWindow: NSWindow? {
         
@@ -42,7 +42,7 @@ final class BlurWindowController: NSWindowController {
     }
     
     
-    // MARK: Private
+    // MARK: - Private
     
     private var imageView: NSImageView {
         

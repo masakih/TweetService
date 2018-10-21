@@ -22,7 +22,7 @@ enum TweetPanelProviderError: Error {
 final class TweetPanelProvider {
     
     
-    // MARK: Internal
+    // MARK: - Internal
     
     static let panelTopOffset: CGFloat = 40.0
     

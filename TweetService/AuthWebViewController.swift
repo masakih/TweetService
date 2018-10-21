@@ -17,7 +17,7 @@ import OAuthSwift
 final class AuthWebViewController: OAuthWebViewController {
     
     
-    // MARK: Internal
+    // MARK: - Internal
     
     init(callbackScheme: String) {
 
@@ -54,7 +54,7 @@ final class AuthWebViewController: OAuthWebViewController {
     }
     
     
-    // MARK: Private
+    // MARK: - Private
     
     private var webView: WKWebView { return self.view as! WKWebView }
     

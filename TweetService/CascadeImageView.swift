@@ -25,7 +25,7 @@ final class CascadeImageView: NSView {
 //    var direction: NSControl.ImagePosition = .imageRight
     
     
-    // MARK: NSView
+    // MARK: - NSView
     
     override func draw(_ dirtyRect: NSRect) {
         super.draw(dirtyRect)
@@ -56,7 +56,7 @@ final class CascadeImageView: NSView {
                                   y: dwarBounds.maxY - imageInfo.size.height - offset.height * imageOffset,
                                   width: imageInfo.size.width,
                                   height: imageInfo.size.height)
-                                
+                
                 imageInfo.image.draw(in: rect)
                 
                 return imageOffset + 1

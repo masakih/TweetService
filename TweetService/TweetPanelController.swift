@@ -16,7 +16,7 @@ import TwitterText
 final class TweetPanelController: NSWindowController {
     
     
-    // MARK: Internal
+    // MARK: - Internal
     
     var string: String { return text.string }
     
@@ -25,7 +25,7 @@ final class TweetPanelController: NSWindowController {
         didSet { imageView?.images = images }
     }
     
-    // MARK: NSWindowController
+    // MARK: - NSWindowController
     
     override var windowNibName: NSNib.Name {
         
@@ -60,7 +60,7 @@ final class TweetPanelController: NSWindowController {
     }
     
     
-    // MARK: Private
+    // MARK: - Private
     
     @objc private dynamic var text = NSAttributedString(string: "") {
         

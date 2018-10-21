@@ -14,7 +14,7 @@ import Foundation
 struct OperationResult<T> {
     
     
-    // MARK: Internal
+    // MARK: - Internal
     
     enum Status {
         

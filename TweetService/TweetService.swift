@@ -65,7 +65,7 @@ public extension TweetServiceDelegate {
 public final class TweetService {
     
     
-    // MARK: Public
+    // MARK: - Public
     
     public var serviceName: String = "Tweet"
     
@@ -98,7 +98,7 @@ public final class TweetService {
     }
     
     
-    // MARK: Private
+    // MARK: - Private
     
     private var oauthswift: OAuth1Swift
     

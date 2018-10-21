@@ -31,7 +31,7 @@ public enum TweetServiceError: Error {
 }
 
 
-// MARK: Internal
+// MARK: - Internal
 
 func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
     
