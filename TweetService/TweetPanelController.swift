@@ -18,22 +18,11 @@ final class TweetPanelController: NSWindowController {
     
     // MARK: Internal
     
-    private lazy var twitterTextParser: TwitterTextParser = {
-        
-        TwitterTextParser.defaultParser()
-        
-    }()
-    
     var string: String { return text.string }
     
     var images: [NSImage] = [] {
         
         didSet { imageView?.images = images }
-    }
-    
-    deinit {
-        
-        progress?.unbind(NSBindingName("current"))
     }
     
     // MARK: NSWindowController
@@ -50,12 +39,6 @@ final class TweetPanelController: NSWindowController {
         replaceContentView()
         
         imageView?.images = self.images
-        
-        progress?.max = 280
-        progress?.bind(NSBindingName("current"),
-                       to: self,
-                       withKeyPath: "count",
-                       options: nil)
     }
     
     /// Show Tweet Panel.
@@ -81,16 +64,36 @@ final class TweetPanelController: NSWindowController {
     
     @objc private dynamic var text = NSAttributedString(string: "") {
         
-        didSet { updateCount() }
+        didSet {
+            
+            parseResult = twitterTextParser.parseTweet(text.string)
+        }
     }
     
     @objc private dynamic var count: Int = 0
+    
+    @objc private dynamic var canTweet: Bool = false
     
     @IBOutlet private weak var textView: NSTextView?
     
     @IBOutlet private weak var imageView: CascadeImageView?
     
-    @IBOutlet private weak var progress: CharactorCounter?
+    private lazy var twitterTextParser: TwitterTextParser = {
+        
+        TwitterTextParser.defaultParser()
+        
+    }()
+    
+    private var parseResult: TwitterTextParseResults? {
+        
+        didSet {
+            
+            guard let result = parseResult else { return }
+            
+            count = result.weightedLength
+            canTweet = result.isValid
+        }
+    }
     
     private var promise: Promise<OperationResult<TweetPanelController>>?
     
@@ -106,15 +109,6 @@ final class TweetPanelController: NSWindowController {
         promise?.complete(.value(OperationResult(cancel: self)))
         
         self.close()
-    }
-    
-    private func updateCount() {
-        
-        let tweetSting = text.string
-        
-        let tResult = twitterTextParser.parseTweet(tweetSting)
-                
-        count = 280 - tResult.weightedLength
     }
     
     private func replaceContentView() {

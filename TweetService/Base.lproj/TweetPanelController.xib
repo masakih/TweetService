@@ -8,7 +8,6 @@
         <customObject id="-2" userLabel="File's Owner" customClass="TweetPanelController" customModule="TweetService" customModuleProvider="target">
             <connections>
                 <outlet property="imageView" destination="luz-kG-Fdg" id="V2U-SZ-Xke"/>
-                <outlet property="progress" destination="TSj-gx-uHG" id="Q0y-uA-86D"/>
                 <outlet property="textView" destination="rZ6-Yo-HUv" id="pq9-Jy-Z45"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
@@ -18,14 +17,14 @@
         <window title="Tweet" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" animationBehavior="default" titlebarAppearsTransparent="YES" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" fullSizeContentView="YES"/>
             <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="196" y="240" width="399" height="237"/>
+            <rect key="contentRect" x="196" y="240" width="426" height="224"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1680" height="1027"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="399" height="237"/>
+                <rect key="frame" x="0.0" y="0.0" width="426" height="224"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hb9-7d-we4">
-                        <rect key="frame" x="316" y="1" width="77" height="32"/>
+                        <rect key="frame" x="343" y="1" width="77" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Tweet" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bae-8U-Zhx">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -37,10 +36,11 @@ DQ
                         </buttonCell>
                         <connections>
                             <action selector="tweet:" target="-2" id="hk8-Mi-1Ub"/>
+                            <binding destination="-2" name="enabled" keyPath="canTweet" id="DZr-iC-Ry8"/>
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yaM-UU-a2k">
-                        <rect key="frame" x="238" y="1" width="82" height="32"/>
+                        <rect key="frame" x="265" y="1" width="82" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                         <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="oY6-C5-7zK">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -54,18 +54,18 @@ Gw
                         </connections>
                     </button>
                     <scrollView fixedFrame="YES" borderType="none" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gqn-cX-BRC">
-                        <rect key="frame" x="12" y="41" width="269" height="160"/>
+                        <rect key="frame" x="12" y="39" width="259" height="149"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <clipView key="contentView" ambiguous="YES" drawsBackground="NO" id="9il-hY-7Fp">
-                            <rect key="frame" x="0.0" y="0.0" width="269" height="160"/>
+                            <rect key="frame" x="0.0" y="0.0" width="259" height="149"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView ambiguous="YES" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" smartInsertDelete="YES" id="rZ6-Yo-HUv">
-                                    <rect key="frame" x="0.0" y="0.0" width="269" height="160"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="259" height="149"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="269" height="160"/>
+                                    <size key="minSize" width="259" height="149"/>
                                     <size key="maxSize" width="463" height="10000000"/>
                                     <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <connections>
@@ -83,28 +83,32 @@ Gw
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" wantsLayer="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="MY2-HW-roI">
-                            <rect key="frame" x="253" y="0.0" width="16" height="160"/>
+                            <rect key="frame" x="243" y="0.0" width="16" height="149"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                     </scrollView>
-                    <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TSj-gx-uHG" customClass="CharactorCounter" customModule="TweetService" customModuleProvider="target">
-                        <rect key="frame" x="289" y="41" width="98" height="50"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    </customView>
                     <box verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="eV1-fI-4tC">
-                        <rect key="frame" x="0.0" y="211" width="399" height="5"/>
+                        <rect key="frame" x="0.0" y="198" width="426" height="5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     </box>
                     <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luz-kG-Fdg" customClass="CascadeImageView" customModule="TweetService" customModuleProvider="target">
-                        <rect key="frame" x="289" y="103" width="98" height="98"/>
+                        <rect key="frame" x="279" y="49" width="135" height="139"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     </customView>
+                    <levelIndicator verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ob5-4A-vd9">
+                        <rect key="frame" x="12" y="9" width="251" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        <levelIndicatorCell key="cell" alignment="left" doubleValue="281" maxValue="281" warningValue="270" criticalValue="281" id="eyv-aR-FHs"/>
+                        <connections>
+                            <binding destination="-2" name="value" keyPath="count" id="FOl-2T-xPF"/>
+                        </connections>
+                    </levelIndicator>
                 </subviews>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="98.5" y="123.5"/>
+            <point key="canvasLocation" x="85" y="117"/>
         </window>
     </objects>
 </document>
