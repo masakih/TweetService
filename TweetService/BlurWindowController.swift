@@ -44,12 +44,6 @@ final class BlurWindowController: NSWindowController {
     
     // MARK: Private
     
-    // 256 grayscale with alpha
-    private typealias PixelWide = UInt16
-    private let bytesPerPixel = 2
-    private let bitsPerComponent = 8
-    private let alphaMask: PixelWide = 0xff00
-    
     private var imageView: NSImageView {
         
         return window?.contentView as! NSImageView
