@@ -47,6 +47,8 @@ final class TweetPanelController: NSWindowController {
         
         super.windowDidLoad()
         
+        replaceContentView()
+        
         imageView?.images = self.images
         
         progress?.max = 280
@@ -113,6 +115,18 @@ final class TweetPanelController: NSWindowController {
         let tResult = twitterTextParser.parseTweet(tweetSting)
                 
         count = 280 - tResult.weightedLength
+    }
+    
+    private func replaceContentView() {
+        
+        guard let contentView = window?.contentView else {
+            
+            fatalError("Not exist window's content view")
+        }
+        
+        let newContentView = NSVisualEffectView(frame: contentView.frame)
+        contentView.subviews.forEach(newContentView.addSubview)
+        window?.contentView = newContentView
     }
 }
 
