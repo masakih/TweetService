@@ -67,7 +67,7 @@ public final class TweetService {
     
     // MARK: Public
     
-    public var seriviceName: String = "Tweet"
+    public var serviceName: String = "Tweet"
     
     public var serviceImage: NSImage = defaultServiceImage()
     
@@ -89,7 +89,7 @@ public final class TweetService {
         
         guard canTweet(items: items) else { return proposedServices }
         
-        let service = NSSharingService(title: seriviceName, image: serviceImage, alternateImage: alternateImage) {
+        let service = NSSharingService(title: serviceName, image: serviceImage, alternateImage: alternateImage) {
             
             self.tweet(items: items)
         }
