@@ -161,7 +161,6 @@ public final class TweetService {
             }
             .onFailure { error in
                 
-                // error is always OAuthSwiftError.
                 let error = convertError(error)
                 
                 if case .missingToken = error {
