@@ -227,20 +227,11 @@ public final class TweetService {
         uploadImage(images: images)
             .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
                 
-                let mediaIDsString = mediaIds.joined(separator: ",")
-                let params: OAuthSwift.Parameters
-                switch mediaIDsString {
-                    
-                case "": params = ["status": text]
-                    
-                default: params = ["status": text, "media_ids": mediaIDsString]
-                }
-                
-                return self.oauthswift
+                self.oauthswift
                     .client
                     .requestFuture("https://api.twitter.com/1.1/statuses/update.json",
                                    method: .POST,
-                                   parameters: params)
+                                   parameters: parameter(text: text, mediaIds: mediaIds))
                     .future
             }
             .onSuccess { _ in
@@ -349,6 +340,17 @@ private func makeOAuth1Swift(consumerKey: String, consumerSecretKey: String) -> 
         authorizeUrl: "https://api.twitter.com/oauth/authenticate",
         accessTokenUrl: "https://api.twitter.com/oauth/access_token"
     )
+}
+
+private func parameter(text: String, mediaIds: [String]) -> OAuthSwift.Parameters {
+    
+    let mediaIDsString = mediaIds.joined(separator: ",")
+    switch mediaIDsString {
+        
+    case "": return ["status": text]
+        
+    default: return ["status": text, "media_ids": mediaIDsString]
+    }
 }
 
 private func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
