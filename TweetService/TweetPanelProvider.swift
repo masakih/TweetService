@@ -24,6 +24,8 @@ final class TweetPanelProvider {
     
     // MARK: Internal
     
+    static let panelTopOffset: CGFloat = 40.0
+    
     func showTweetPanelFuture(_ sourceWindow: NSWindow?, shareItems items: [Any]) -> Future<[Any]> {
         
         let promise = Promise<[Any]>()
@@ -49,7 +51,7 @@ final class TweetPanelProvider {
                 case .cancel: promise.failure(TweetPanelProviderError.userCancel)
                 }
                 
-                self.closeBlurIfNeed(sourceWindow, tweetPanelController: tController)
+                closeBlurIfNeed(sourceWindow, tweetPanelController: tController)
                 self.tweetPanelController = nil
         }
         
@@ -59,41 +61,43 @@ final class TweetPanelProvider {
     
     // MARK: - Private
     
-    private static let panelTopOffset: CGFloat = 40.0
-    
     private var tweetPanelController: TweetPanelController?
+}
+
+
+// MARK: - Private
+
+private func showBlurIfNeed(_ window: NSWindow?, tweetPanelController: TweetPanelController) {
     
-    private func showBlurIfNeed(_ window: NSWindow?, tweetPanelController: TweetPanelController) {
+    if let window = window, let panelWindow = tweetPanelController.window {
         
-        if let window = window, let panelWindow = tweetPanelController.window {
-            
-            let targetFrame = window.frame
-            
-            let blurWindowController = BlurWindowController()
-            blurWindowController.window?.addChildWindow(window, ordered: .below)
-            blurWindowController.window?.setFrame(targetFrame, display: false)
-            blurWindowController.targetWindow = window
-            blurWindowController.showWindow(self)
-            
-            var panelFrame = panelWindow.frame
-            panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
-            panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + type(of: self).panelTopOffset
-            
-            panelWindow.setFrame(panelFrame, display: false)
-            panelWindow.addChildWindow(blurWindowController.window!, ordered: .below)
-        }
-    }
-    
-    private func closeBlurIfNeed(_ window: NSWindow?, tweetPanelController: TweetPanelController) {
+        let targetFrame = window.frame
         
-        if let window = window,
-            let panelWindow = tweetPanelController.window,
-            let blurWindow = window.parent {
-            
-            blurWindow.removeChildWindow(window)
-            
-            panelWindow.removeChildWindow(blurWindow)
-            blurWindow.close()
-        }
+        let blurWindowController = BlurWindowController()
+        blurWindowController.window?.addChildWindow(window, ordered: .below)
+        blurWindowController.window?.setFrame(targetFrame, display: false)
+        blurWindowController.targetWindow = window
+        blurWindowController.showWindow(nil)
+        
+        var panelFrame = panelWindow.frame
+        panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
+        panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + TweetPanelProvider.panelTopOffset
+        
+        panelWindow.setFrame(panelFrame, display: false)
+        panelWindow.addChildWindow(blurWindowController.window!, ordered: .below)
     }
 }
+
+private func closeBlurIfNeed(_ window: NSWindow?, tweetPanelController: TweetPanelController) {
+    
+    if let window = window,
+        let panelWindow = tweetPanelController.window,
+        let blurWindow = window.parent {
+        
+        blurWindow.removeChildWindow(window)
+        
+        panelWindow.removeChildWindow(blurWindow)
+        blurWindow.close()
+    }
+}
+
