@@ -25,6 +25,8 @@ final class TweetPanelController: NSWindowController {
         didSet { imageView?.images = images }
     }
     
+    weak var targetWindow: NSWindow?
+    
     // MARK: - NSWindowController
     
     override var windowNibName: NSNib.Name {
@@ -39,6 +41,8 @@ final class TweetPanelController: NSWindowController {
         replaceContentView()
         
         imageView?.images = self.images
+        
+        showBlurIfNeed()
     }
     
     /// Show Tweet Panel.
@@ -53,6 +57,8 @@ final class TweetPanelController: NSWindowController {
         self.images = images
         
         promise = Promise()
+        
+//        showBlurIfNeed(targetWindow, tweetPanelController: self)
         
         showWindow(nil)
         
@@ -122,6 +128,46 @@ final class TweetPanelController: NSWindowController {
         contentView.subviews.forEach(newContentView.addSubview)
         window?.contentView = newContentView
     }
+    
+    private func showBlurIfNeed() {
+        
+        guard let targetWindow = targetWindow, let window = window else {
+            
+            self.window?.center()
+            
+            return
+        }
+        
+        let targetFrame = targetWindow.frame
+        
+        let blurWindowController = BlurWindowController()
+        blurWindowController.window?.addChildWindow(targetWindow, ordered: .below)
+        blurWindowController.window?.setFrame(targetFrame, display: false)
+        blurWindowController.targetWindow = targetWindow
+        blurWindowController.showWindow(nil)
+        
+        var panelFrame = window.frame
+        panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
+        panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + TweetPanelProvider.panelTopOffset
+        
+        window.setFrame(panelFrame, display: false)
+        window.addChildWindow(blurWindowController.window!, ordered: .below)
+    }
+    
+    private func closeBlurIfNeed() {
+        
+        guard let targetWindow = targetWindow,
+            let window = window,
+            let blurWindow = targetWindow.parent else {
+                
+                return
+        }
+        
+        blurWindow.removeChildWindow(targetWindow)
+        
+        window.removeChildWindow(blurWindow)
+        blurWindow.close()
+    }
 }
 
 
@@ -132,5 +178,10 @@ extension TweetPanelController: NSWindowDelegate {
     func windowDidResignMain(_ notification: Notification) {
         
         self.window?.makeKeyAndOrderFront(nil)
+    }
+    
+    func windowWillClose(_ notification: Notification) {
+        
+        closeBlurIfNeed()
     }
 }
