@@ -2,3 +2,5 @@
 github "OAuthSwift/OAuthSwift" ~> 1.2.0
 
 github "twitter/twitter-text" ~> 3.0.0
+
+github "kishikawakatsumi/KeychainAccess"

@@ -8,6 +8,7 @@
 
 import Cocoa
 
+import KeychainAccess
 import OAuthSwift
 
 
@@ -131,9 +132,32 @@ public final class TweetService {
     
     private func tweet(items: [Any]) {
         
+        guard Thread.isMainThread else {
+            
+            DispatchQueue.main.async {
+                
+                self.tweet(items: items)
+            }
+            
+            return
+        }
+        
         guard didAuthrized else {
             
-            authorizeAndTweet(items)
+            retrieveFromKeyChain()
+                .onSuccess {
+                    
+                    self.delegate?.tweetService(didSuccessAuthorize: self)
+                    
+                    self.didAuthrized = true
+                    self.tweet(items: items)
+                }
+                .onFailure { error in
+                    
+                    print("keychain error:", error)
+                    
+                    self.authorizeAndTweet(items)
+            }
             
             return
         }
@@ -156,6 +180,16 @@ public final class TweetService {
                 
                 self.didAuthrized = true
                 self.delegate?.tweetService(didSuccessAuthorize: self)
+                
+                do {
+                    let d = try self.oauthswift.client.credential.archive()
+                    let keychain = Keychain(service: "TweetService")
+                    try keychain.set(d, key: "credental")
+                }
+                catch {
+                    
+                    print("keychain error:", error)
+                }
                 
                 self.tweet(items: items)
             }
@@ -269,6 +303,26 @@ public final class TweetService {
             .onFailure { error in promise.failure(error) }
         
         return promise.future.flatMap(uploadImage)
+    }
+    
+    private func retrieveFromKeyChain() -> Future<Void> {
+        
+        return Future {
+            
+            let keychain = Keychain(service: "TweetService")
+            
+            guard let credentalData = try keychain
+                .authenticationPrompt("Authenticate to tweet")
+                .getData("credental") else {
+                    
+                    throw NSError(domain: "hoge", code: -1, userInfo: nil)
+            }
+            
+            let credental = try OAuthSwiftCredential.unarchive(credentalData)
+            
+            self.oauthswift.client.credential.oauthToken = credental.oauthToken
+            self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
+        }
     }
 }
 

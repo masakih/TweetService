@@ -69,22 +69,25 @@ final class TweetPanelProvider {
 
 private func showBlurIfNeed(_ window: NSWindow?, tweetPanelController: TweetPanelController) {
     
-    if let window = window, let panelWindow = tweetPanelController.window {
+    DispatchQueue.main.async {
         
-        let targetFrame = window.frame
-        
-        let blurWindowController = BlurWindowController()
-        blurWindowController.window?.addChildWindow(window, ordered: .below)
-        blurWindowController.window?.setFrame(targetFrame, display: false)
-        blurWindowController.targetWindow = window
-        blurWindowController.showWindow(nil)
-        
-        var panelFrame = panelWindow.frame
-        panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
-        panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + TweetPanelProvider.panelTopOffset
-        
-        panelWindow.setFrame(panelFrame, display: false)
-        panelWindow.addChildWindow(blurWindowController.window!, ordered: .below)
+        if let window = window, let panelWindow = tweetPanelController.window {
+            
+            let targetFrame = window.frame
+            
+            let blurWindowController = BlurWindowController()
+            blurWindowController.window?.addChildWindow(window, ordered: .below)
+            blurWindowController.window?.setFrame(targetFrame, display: false)
+            blurWindowController.targetWindow = window
+            blurWindowController.showWindow(nil)
+            
+            var panelFrame = panelWindow.frame
+            panelFrame.origin.x = targetFrame.origin.x + (targetFrame.width - panelFrame.width) / 2
+            panelFrame.origin.y = targetFrame.origin.y + (targetFrame.height - panelFrame.height) / 2 + TweetPanelProvider.panelTopOffset
+            
+            panelWindow.setFrame(panelFrame, display: false)
+            panelWindow.addChildWindow(blurWindowController.window!, ordered: .below)
+        }
     }
 }
 
