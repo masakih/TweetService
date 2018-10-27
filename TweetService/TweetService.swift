@@ -8,6 +8,7 @@
 
 import Cocoa
 
+import KeychainAccess
 import OAuthSwift
 
 
@@ -131,9 +132,35 @@ public final class TweetService {
     
     private func tweet(items: [Any]) {
         
+        guard Thread.isMainThread else {
+            
+            DispatchQueue.main.async {
+                
+                self.tweet(items: items)
+            }
+            
+            return
+        }
+        
         guard didAuthrized else {
             
-            authorizeAndTweet(items)
+            retrieveFromKeyChain()
+                .onSuccess {
+                    
+                    self.delegate?.tweetService(didSuccessAuthorize: self)
+                    
+                    self.didAuthrized = true
+                    self.tweet(items: items)
+                }
+                .onFailure { error in
+                    
+                    if let kaError = error as? KeychainAccess.Status {
+                        
+                        print("KeychainAccess Error:", kaError)
+                    }
+                    
+                    self.authorizeAndTweet(items)
+            }
             
             return
         }
@@ -152,7 +179,8 @@ public final class TweetService {
         
         oauthswift
             .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
-            .onSuccess { _,_,_ in
+            .flatMap { _,_,_ in  self.storeCredental() }
+            .onSuccess {
                 
                 self.didAuthrized = true
                 self.delegate?.tweetService(didSuccessAuthorize: self)
@@ -269,6 +297,36 @@ public final class TweetService {
             .onFailure { error in promise.failure(error) }
         
         return promise.future.flatMap(uploadImage)
+    }
+    
+    private func retrieveFromKeyChain() -> Future<Void> {
+        
+        return Future {
+            
+            let keychain = Keychain(service: "TweetService")
+            
+            guard let credentalData = try keychain
+                .authenticationPrompt("Authenticate to tweet")
+                .getData("credental") else {
+                    
+                    throw TweetServiceError.credentalNotStoreInKeychain
+            }
+            
+            let credental = try OAuthSwiftCredential.unarchive(credentalData)
+            
+            self.oauthswift.client.credential.oauthToken = credental.oauthToken
+            self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
+        }
+    }
+    
+    private func storeCredental() -> Future<Void> {
+        
+        return Future {
+            
+            let archiveData = try self.oauthswift.client.credential.archive()
+            let keychain = Keychain(service: "TweetService")
+            try keychain.set(archiveData, key: "credental")
+        }
     }
 }
 
