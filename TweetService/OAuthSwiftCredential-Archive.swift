@@ -15,23 +15,15 @@ extension OAuthSwiftCredential {
     
     func archive() throws -> Data {
         
-        do {
-            
-            return try NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: true)
-        }
-        catch {
-            
-            throw TweetServiceError.couldNotArchiveCredental
-        }
+        return try NSKeyedArchiver.archivedData(withRootObject: self,
+                                                requiringSecureCoding: true)
+            !!! TweetServiceError.couldNotArchiveCredental
     }
     
     static func unarchive(_ data: Data) throws -> OAuthSwiftCredential {
         
-        guard let credental = try NSKeyedUnarchiver.unarchivedObject(ofClass: OAuthSwiftCredential.self, from: data) else {
-            
-            throw TweetServiceError.couldNotUnarchiveCredental
-        }
-        
-        return credental
+        return try NSKeyedUnarchiver.unarchivedObject(ofClass: OAuthSwiftCredential.self,
+                                                      from: data)
+            ?!! TweetServiceError.couldNotUnarchiveCredental
     }
 }

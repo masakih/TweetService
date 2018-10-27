@@ -280,15 +280,8 @@ public final class TweetService {
                 Future {
                     
                     let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments)
-                    guard let dict = json as? [String: Any] else {
-                        
-                        throw TweetServiceError.jsonNotDictionary
-                    }
-                    
-                    guard let mediaId = dict["media_id_string"] as? String else {
-                        
-                        throw TweetServiceError.notContainsMediaId
-                    }
+                    let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
+                    let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
                     
                     return (Array(images.dropFirst()) , mediaIds + [mediaId])
                 }
@@ -305,13 +298,10 @@ public final class TweetService {
             
             let keychain = Keychain(service: "TweetService")
             
-            guard let credentalData = try keychain
+            let data = try keychain
                 .authenticationPrompt("Authenticate to tweet")
-                .getData("credental") else {
-                    
-                    throw TweetServiceError.credentalNotStoreInKeychain
-            }
-            
+                .getData("credental") !!! TweetServiceError.keychainAccessInternal
+            let credentalData = try data ??! TweetServiceError.credentalNotStoreInKeychain
             let credental = try OAuthSwiftCredential.unarchive(credentalData)
             
             self.oauthswift.client.credential.oauthToken = credental.oauthToken
