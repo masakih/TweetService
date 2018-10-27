@@ -154,7 +154,10 @@ public final class TweetService {
                 }
                 .onFailure { error in
                     
-                    print("keychain error:", error)
+                    if let kaError = error as? KeychainAccess.Status {
+                        
+                        print("KeychainAccess Error:", kaError)
+                    }
                     
                     self.authorizeAndTweet(items)
             }
@@ -176,20 +179,11 @@ public final class TweetService {
         
         oauthswift
             .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
-            .onSuccess { _,_,_ in
+            .flatMap { _,_,_ in  self.storeCredental() }
+            .onSuccess {
                 
                 self.didAuthrized = true
                 self.delegate?.tweetService(didSuccessAuthorize: self)
-                
-                do {
-                    let d = try self.oauthswift.client.credential.archive()
-                    let keychain = Keychain(service: "TweetService")
-                    try keychain.set(d, key: "credental")
-                }
-                catch {
-                    
-                    print("keychain error:", error)
-                }
                 
                 self.tweet(items: items)
             }
@@ -315,13 +309,23 @@ public final class TweetService {
                 .authenticationPrompt("Authenticate to tweet")
                 .getData("credental") else {
                     
-                    throw NSError(domain: "hoge", code: -1, userInfo: nil)
+                    throw TweetServiceError.credentalNotStoreInKeychain
             }
             
             let credental = try OAuthSwiftCredential.unarchive(credentalData)
             
             self.oauthswift.client.credential.oauthToken = credental.oauthToken
             self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
+        }
+    }
+    
+    private func storeCredental() -> Future<Void> {
+        
+        return Future {
+            
+            let archiveData = try self.oauthswift.client.credential.archive()
+            let keychain = Keychain(service: "TweetService")
+            try keychain.set(archiveData, key: "credental")
         }
     }
 }

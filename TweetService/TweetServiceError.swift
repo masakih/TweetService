@@ -6,6 +6,7 @@
 //  Copyright © 2018 Hori,Masaki. All rights reserved.
 //
 
+import KeychainAccess
 import OAuthSwift
 
 
@@ -16,6 +17,14 @@ public enum TweetServiceError: Error {
     case jsonNotDictionary
     
     case notContainsMediaId
+    
+    case credentalNotStoreInKeychain
+    
+    case couldNotArchiveCredental
+    
+    case couldNotUnarchiveCredental
+    
+    case keychainAccessInternal
     
     case tokenExpired
     
@@ -50,6 +59,11 @@ func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
 }
 
 func convertError(_ error: Error) -> TweetServiceError {
+    
+    if error is KeychainAccess.Status {
+        
+        return TweetServiceError.keychainAccessInternal
+    }
     
     guard let oauthError = error as? OAuthSwiftError else { return TweetServiceError.unknownError(error) }
     
