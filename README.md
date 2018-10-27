@@ -100,6 +100,40 @@ extension ViewController {
 
 以上、たったこれだけであなたのアプリケーションからツイートが出来るようになります。
 
+# 組み込み方
+
+## Carthage
+Carthage使えます
+
+Cartfile
+```Cartfile
+github "masakih/TweetService"
+```
+
+コマンド
+```sh
+carthage update --platform macos
+```
+
+## Link framework
+
+- TweetService.framework
+
+をリンクしてください。
+
+## Embedded framework
+
+- TweetService.framework
+
+の他に
+
+- OAuthSwift.framework
+- TwitterText.framework
+- KeychainAccess.framework
+
+をエンベッドする必要があります。
+Carthageを利用した場合はCarthageディレクトリにあります。
+
 
 # Demo.appの使い方
 
