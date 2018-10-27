@@ -27,6 +27,7 @@ final class TweetPanelController: NSWindowController {
     
     weak var targetWindow: NSWindow?
     
+    
     // MARK: - NSWindowController
     
     override var windowNibName: NSNib.Name {
@@ -57,8 +58,6 @@ final class TweetPanelController: NSWindowController {
         self.images = images
         
         promise = Promise()
-        
-//        showBlurIfNeed(targetWindow, tweetPanelController: self)
         
         showWindow(nil)
         
