@@ -60,6 +60,11 @@ func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
 
 func convertError(_ error: Error) -> TweetServiceError {
     
+    if let error = error as? TweetServiceError {
+        
+        return error
+    }
+    
     if error is KeychainAccess.Status {
         
         return TweetServiceError.keychainAccessInternal
