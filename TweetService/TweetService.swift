@@ -167,8 +167,29 @@ public final class TweetService {
         
         tweetPanelProvider
             .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
-            .onSuccess { items in self.tweetFromPanel(items: items) }
-            .onFailure { _ in self.delegate?.tweetServiveDidCancel(self) }
+            .flatMap { items in self.tweetFromPanel(items: items) }
+            .onSuccess { self.delegate?.tweetService(self, didPostItems: items) }
+            .onFailure { error in
+                
+                if let error = error as? TweetPanelProviderError, error == .userCancel {
+                    
+                    self.delegate?.tweetServiveDidCancel(self)
+                    
+                    return
+                }
+                
+                let error = convertError(error)
+                
+                if let (message, code) = twitterError(error) {
+                    
+                    self.delegate?.tweetService(self, didFailPostItems: items,
+                                                error: TweetServiceError.twitterError(message: message, code: code))
+                    
+                    return
+                }
+                
+                self.delegate?.tweetService(self, didFailPostItems: items, error: error)
+        }
     }
     
     private func authorizeAndTweet(_ items: [Any]) {
@@ -220,14 +241,14 @@ public final class TweetService {
         fatalError("TweetServiceDelegate must provide tweetSetviceAuthorizeSheetPearent or sourceWindowForShareItems must has contentViewController")
     }
     
-    private func tweetFromPanel(items: [Any]) {
+    private func tweetFromPanel(items: [Any]) -> Future<Void> {
         
         delegate?.tweetService(self, willPostItems: items)
         
         let text = items.first{ item in item is String } as? String ?? ""
         let images = items.filter { item in item is NSImage } as? [NSImage] ?? []
         
-        uploadImage(images: images)
+        return uploadImage(images: images)
             .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
                 
                 self.oauthswift
@@ -237,24 +258,7 @@ public final class TweetService {
                                    parameters: parameter(text: text, mediaIds: mediaIds))
                     .future
             }
-            .onSuccess { _ in
-                
-                self.delegate?.tweetService(self, didPostItems: items)
-            }
-            .onFailure { error in
-                
-                let error = convertError(error)
-                
-                if let (message, code) = twitterError(error) {
-                    
-                    self.delegate?.tweetService(self, didFailPostItems: items,
-                                                error: TweetServiceError.twitterError(message: message, code: code))
-                    
-                    return
-                }
-                
-                self.delegate?.tweetService(self, didFailPostItems: items, error: error)
-        }
+            .map { _ in () }
     }
     
     private func uploadImage(images: [NSImage], mediaIds: [String] = []) -> Future<(images: [NSImage], mediaIds: [String])> {
