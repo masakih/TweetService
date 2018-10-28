@@ -113,21 +113,21 @@ private func toBlack(data: Data) -> Data {
 
 private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage? {
     
-    var p: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>.allocate(capacity: data.count)
-    guard let pp = p else { return nil }
-    data.copyBytes(to: pp, count: data.count)
-    defer { pp.deallocate() }
-    
-    return NSBitmapImageRep(bitmapDataPlanes: &p,
-                            pixelsWide: width,
-                            pixelsHigh: height,
-                            bitsPerSample: bitsPerComponent,
-                            samplesPerPixel: bytesPerPixel,
-                            hasAlpha: true,
-                            isPlanar: false,
-                            colorSpaceName: NSColorSpaceName.deviceWhite,
-                            bytesPerRow: bytesPerPixel * width,
-                            bitsPerPixel: bytesPerPixel * bitsPerComponent)
-        .flatMap { $0.tiffRepresentation }
-        .flatMap { NSImage(data: $0) }
+    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> NSImage? in
+        
+        var pointer: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>(mutating: bytes)
+        
+        return NSBitmapImageRep(bitmapDataPlanes: &pointer,
+                                pixelsWide: width,
+                                pixelsHigh: height,
+                                bitsPerSample: bitsPerComponent,
+                                samplesPerPixel: bytesPerPixel,
+                                hasAlpha: true,
+                                isPlanar: false,
+                                colorSpaceName: NSColorSpaceName.deviceWhite,
+                                bytesPerRow: bytesPerPixel * width,
+                                bitsPerPixel: bytesPerPixel * bitsPerComponent)
+            .flatMap { $0.tiffRepresentation }
+            .flatMap { NSImage(data: $0) }
+    }
 }
