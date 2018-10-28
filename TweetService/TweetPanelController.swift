@@ -42,8 +42,6 @@ final class TweetPanelController: NSWindowController {
         replaceContentView()
         
         imageView?.images = self.images
-        
-        showBlurIfNeed()
     }
     
     /// Show Tweet Panel.
@@ -59,6 +57,7 @@ final class TweetPanelController: NSWindowController {
         
         promise = Promise()
         
+        showBlurIfNeed()
         showWindow(nil)
         
         return promise!.future
