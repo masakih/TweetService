@@ -148,7 +148,7 @@ public final class TweetService {
                     .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
                     .mapError(convertError)
             }
-            .flatMap { items in self.sendTweet(items: items) }
+            .flatMap { items in self.postTweet(items: items) }
             .onSuccess { items in self.delegate?.tweetService(self, didPostItems: items) }
             .onFailure { error in
                 
@@ -238,7 +238,7 @@ public final class TweetService {
         fatalError("TweetServiceDelegate must provide tweetSetviceAuthorizeSheetPearent or sourceWindowForShareItems must has contentViewController")
     }
     
-    private func sendTweet(items: [Any]) -> Future<[Any], TweetServiceError> {
+    private func postTweet(items: [Any]) -> Future<[Any], TweetServiceError> {
         
         delegate?.tweetService(self, willPostItems: items)
         
