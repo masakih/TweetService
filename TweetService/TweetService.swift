@@ -8,8 +8,10 @@
 
 import Cocoa
 
+import BrightFutures
 import KeychainAccess
 import OAuthSwift
+import Result
 
 
 // MARK: - TweetServiceDelegate
@@ -132,53 +134,47 @@ public final class TweetService {
     
     private func tweet(items: [Any]) {
         
-        guard Thread.isMainThread else {
-            
-            DispatchQueue.main.async {
+        checkAuthorized()
+            .recoverWith { _ in self.retrieveFromKeyChain() }
+            .recoverWith { _ in self.authorize(items) }
+            .onSuccess {
                 
-                self.tweet(items: items)
+                self.didAuthrized = true
+                self.delegate?.tweetService(didSuccessAuthorize: self)
             }
-            
-            return
-        }
-        
-        guard didAuthrized else {
-            
-            retrieveFromKeyChain()
-                .onSuccess {
-                    
-                    self.delegate?.tweetService(didSuccessAuthorize: self)
-                    
-                    self.didAuthrized = true
-                    self.tweet(items: items)
-                }
-                .onFailure { error in
-                    
-                    if let kaError = error as? KeychainAccess.Status {
-                        
-                        print("KeychainAccess Error:", kaError)
-                    }
-                    
-                    self.authorizeAndTweet(items)
+            .flatMap {
+                
+                self.tweetPanelProvider
+                    .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
+                    .mapError(convertError)
             }
-            
-            return
-        }
-        
-        tweetPanelProvider
-            .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
-            .flatMap { items in self.tweetFromPanel(items: items) }
-            .onSuccess { self.delegate?.tweetService(self, didPostItems: items) }
+            .flatMap { items in self.sendTweet(items: items) }
+            .onSuccess { items in self.delegate?.tweetService(self, didPostItems: items) }
             .onFailure { error in
                 
-                if let error = error as? TweetPanelProviderError, error == .userCancel {
+                if case .userCancel = error {
                     
                     self.delegate?.tweetServiveDidCancel(self)
                     
                     return
                 }
                 
-                let error = convertError(error)
+                if case .missingToken = error {
+                    
+                    self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
+                                                      consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
+                    
+                    self.delegate?.tweetServiveDidCancel(self)
+                    
+                    return
+                }
+                
+                if case .failAuthorize = error {
+                    
+                    self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
+                    
+                    return
+                }
                 
                 if let (message, code) = twitterError(error) {
                     
@@ -192,37 +188,38 @@ public final class TweetService {
         }
     }
     
-    private func authorizeAndTweet(_ items: [Any]) {
+    private func checkAuthorized() -> Future<Void, TweetServiceError> {
+        
+        return Future { complete in
+            
+            if didAuthrized {
+                
+                complete(.success(()))
+                
+            } else {
+                
+                complete(.failure(.notAuthorized))
+            }
+        }
+    }
+    
+    private func authorize(_ items: [Any]) -> Future<Void, TweetServiceError> {
         
         oauthswift.authorizeURLHandler = webViewController
         webViewController.delegate = self
         authorizePanelParent(for: items).addChildViewController(webViewController)
         
-        oauthswift
+        return  oauthswift
             .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
             .flatMap { _,_,_ in  self.storeCredental() }
-            .onSuccess {
+            .mapError { error in
                 
-                self.didAuthrized = true
-                self.delegate?.tweetService(didSuccessAuthorize: self)
-                
-                self.tweet(items: items)
-            }
-            .onFailure { error in
-                
-                let error = convertError(error)
-                
-                if case .missingToken = error {
+                switch error {
                     
-                    self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
-                                                      consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
+                case .missingToken: return error
                     
-                    self.delegate?.tweetServiveDidCancel(self)
-                    
-                    return
+                default: return .failAuthorize
                 }
-                
-                self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
         }
     }
     
@@ -241,7 +238,7 @@ public final class TweetService {
         fatalError("TweetServiceDelegate must provide tweetSetviceAuthorizeSheetPearent or sourceWindowForShareItems must has contentViewController")
     }
     
-    private func tweetFromPanel(items: [Any]) -> Future<Void> {
+    private func sendTweet(items: [Any]) -> Future<[Any], TweetServiceError> {
         
         delegate?.tweetService(self, willPostItems: items)
         
@@ -249,7 +246,7 @@ public final class TweetService {
         let images = items.filter { item in item is NSImage } as? [NSImage] ?? []
         
         return uploadImage(images: images)
-            .flatMap { (_, mediaIds) -> Future<OAuthSwiftResponse> in
+            .flatMap { _, mediaIds in
                 
                 self.oauthswift
                     .client
@@ -257,38 +254,40 @@ public final class TweetService {
                                    method: .POST,
                                    parameters: parameter(text: text, mediaIds: mediaIds))
                     .future
-            }
-            .map { _ in () }
+                    .map { _ in items }
+                    .mapError(convertError)
+        }
     }
     
-    private func uploadImage(images: [NSImage], mediaIds: [String] = []) -> Future<(images: [NSImage], mediaIds: [String])> {
+    typealias UploadImageAttribute = (images: [NSImage], mediaIds: [String])
+    private func uploadImage(images: [NSImage], mediaIds: [String] = []) -> Future<UploadImageAttribute, TweetServiceError> {
         
         guard let image = images.first else {
             
-            return Future((images, mediaIds))
+            return Future(value: (images, mediaIds))
         }
         
         guard let imageData = jpegData(image) else {
             
-            return Future((Array(images.dropFirst()), mediaIds))
+            return Future(value: (Array(images.dropFirst()), mediaIds))
         }
         
-        let promise = Promise<([NSImage], [String])>()
+        let promise = Promise<UploadImageAttribute, TweetServiceError>()
         
         oauthswift
             .client
             .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
             .future
-            .flatMap { response -> Future<([NSImage], [String])> in
+            .flatMap { response in
                 
-                Future {
+                Future(result: Result {
                     
-                    let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments)
+                    let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments) !!! TweetServiceError.couldNotParseJSON
                     let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
                     let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
                     
                     return (Array(images.dropFirst()) , mediaIds + [mediaId])
-                }
+                })
             }
             .onSuccess { result in promise.success(result) }
             .onFailure { error in promise.failure(error) }
@@ -296,9 +295,9 @@ public final class TweetService {
         return promise.future.flatMap(uploadImage)
     }
     
-    private func retrieveFromKeyChain() -> Future<Void> {
+    private func retrieveFromKeyChain() -> Future<Void, TweetServiceError> {
         
-        return Future {
+        return Future(result: Result {
             
             let keychain = Keychain(service: "TweetService")
             
@@ -310,17 +309,18 @@ public final class TweetService {
             
             self.oauthswift.client.credential.oauthToken = credental.oauthToken
             self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
-        }
+        })
     }
     
-    private func storeCredental() -> Future<Void> {
+    private func storeCredental() -> Future<Void, TweetServiceError> {
         
-        return Future {
+        return Future(result: Result {
             
             let archiveData = try self.oauthswift.client.credential.archive()
             let keychain = Keychain(service: "TweetService")
-            try keychain.set(archiveData, key: "credental")
-        }
+            try? keychain.set(archiveData, key: "credental")
+        })
+            .mapError(convertError)
     }
 }
 

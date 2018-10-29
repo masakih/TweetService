@@ -8,6 +8,7 @@
 
 import Cocoa
 
+import BrightFutures
 
 // MARK: - TweetPanelProviderError
 
@@ -26,9 +27,9 @@ final class TweetPanelProvider {
     
     static let panelTopOffset: CGFloat = 40.0
     
-    func showTweetPanelFuture(_ sourceWindow: NSWindow?, shareItems items: [Any]) -> Future<[Any]> {
+    func showTweetPanelFuture(_ sourceWindow: NSWindow?, shareItems items: [Any]) -> Future<[Any], TweetPanelProviderError> {
         
-        let promise = Promise<[Any]>()
+        let promise = Promise<[Any], TweetPanelProviderError>()
         
         tweetPanelController = TweetPanelController()
         
