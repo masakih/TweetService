@@ -49,7 +49,7 @@ final class TweetPanelProvider {
                     
                 case .complete: promise.success(tController.images + [tController.string])
                     
-                case .cancel: promise.failure(TweetPanelProviderError.userCancel)
+                case .cancel: promise.failure(.userCancel)
                 }
                 
                 self.tweetPanelController = nil
