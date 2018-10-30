@@ -152,39 +152,34 @@ public final class TweetService {
             .onSuccess { items in self.delegate?.tweetService(self, didPostItems: items) }
             .onFailure { error in
                 
-                if case .userCancel = error {
+                switch error {
+                    
+                case .userCancel:
                     
                     self.delegate?.tweetServiveDidCancel(self)
                     
-                    return
-                }
-                
-                if case .missingToken = error {
+                case .missingToken:
                     
                     self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
                                                       consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
                     
                     self.delegate?.tweetServiveDidCancel(self)
                     
-                    return
-                }
-                
-                if case .failAuthorize = error {
+                case .failAuthorize:
                     
                     self.delegate?.tweetService(self, didFailAuthorizeWithError: error)
                     
-                    return
-                }
-                
-                if let (message, code) = twitterError(error) {
+                case .twitterError:
+                    
+                    let error = twitterError(error) ?? error
                     
                     self.delegate?.tweetService(self, didFailPostItems: items,
-                                                error: TweetServiceError.twitterError(message: message, code: code))
+                                                error: error)
                     
-                    return
+                default:
+                    
+                    self.delegate?.tweetService(self, didFailPostItems: items, error: error)
                 }
-                
-                self.delegate?.tweetService(self, didFailPostItems: items, error: error)
         }
     }
     

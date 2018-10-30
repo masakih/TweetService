@@ -50,7 +50,7 @@ public enum TweetServiceError: Error {
 
 // MARK: - Internal
 
-func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
+func twitterError(_ error: TweetServiceError) -> TweetServiceError? {
     
     if case let .requestError(nserror as NSError, _) = error,
         let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
@@ -60,7 +60,7 @@ func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
         let message = firstError["message"] as? String,
         let code = firstError["code"] as? Int {
         
-        return (message, code)
+        return .twitterError(message: message, code: code)
     }
     
     return nil
