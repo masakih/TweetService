@@ -282,7 +282,7 @@ public final class TweetService {
                 
                 Future(result: Result {
                     
-                    let json = try JSONSerialization.jsonObject(with: response.data, options: .allowFragments) !!! TweetServiceError.couldNotParseJSON
+                    let json = try JSONSerialization.jsonObject(with: response.data) !!! TweetServiceError.couldNotParseJSON
                     let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
                     let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
                     
