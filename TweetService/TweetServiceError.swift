@@ -14,6 +14,14 @@ import OAuthSwift
 
 public enum TweetServiceError: Error {
     
+    case notAuthorized
+    
+    case userCancel
+    
+    case failAuthorize
+    
+    case couldNotParseJSON
+    
     case jsonNotDictionary
     
     case notContainsMediaId
@@ -42,7 +50,7 @@ public enum TweetServiceError: Error {
 
 // MARK: - Internal
 
-func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
+func twitterError(_ error: TweetServiceError) -> TweetServiceError? {
     
     if case let .requestError(nserror as NSError, _) = error,
         let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
@@ -52,7 +60,7 @@ func twitterError(_ error: TweetServiceError) -> (message: String, code: Int)? {
         let message = firstError["message"] as? String,
         let code = firstError["code"] as? Int {
         
-        return (message, code)
+        return .twitterError(message: message, code: code)
     }
     
     return nil
@@ -65,18 +73,23 @@ func convertError(_ error: Error) -> TweetServiceError {
         return error
     }
     
-    if error is KeychainAccess.Status {
+    if let error = error as? TweetPanelProviderError, error == .userCancel {
         
-        return TweetServiceError.keychainAccessInternal
+        return .userCancel
     }
     
-    guard let oauthError = error as? OAuthSwiftError else { return TweetServiceError.unknownError(error) }
+    if error is KeychainAccess.Status {
+        
+        return .keychainAccessInternal
+    }
+    
+    guard let oauthError = error as? OAuthSwiftError else { return .unknownError(error) }
     
     switch oauthError {
         
     case .configurationError: fatalError("unreached configurationError")
         
-    case .tokenExpired: return TweetServiceError.tokenExpired
+    case .tokenExpired: return .tokenExpired
         
     case .missingState: fatalError("unreached missingState")
         
@@ -86,15 +99,15 @@ func convertError(_ error: Error) -> TweetServiceError {
         
     case .encodingError: fatalError("unreached encodingError")
         
-    case .authorizationPending: return TweetServiceError.authorizationPending
+    case .authorizationPending: return .authorizationPending
         
     case .requestCreation: fatalError("unreached requestCreation")
         
-    case .missingToken: return TweetServiceError.missingToken
+    case .missingToken: return .missingToken
         
     case .retain: fatalError("unreached retain")
         
-    case let .requestError(err, request): return TweetServiceError.requestError(error: err, request: request)
+    case let .requestError(err, request): return .requestError(error: err, request: request)
         
     case .cancelled: fatalError("unreached cancelled")
         

@@ -20,7 +20,6 @@
 		F43A41ED216F9E8F00C1E712 /* TweetPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */; };
 		F43A41EF216F9EC100C1E712 /* CascadeImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */; };
 		F43A41F0216F9EC600C1E712 /* BlurWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */; };
-		F43A41F3216F9ED500C1E712 /* Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B74216A4EFC00D1A681 /* Future.swift */; };
 		F43A41F4216F9ED900C1E712 /* OAuthSwiftClient-Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */; };
 		F43A41F5216F9EDD00C1E712 /* OAuth1Swift-Future.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */; };
 		F43A41FA216FA0C800C1E712 /* AuthWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */; };
@@ -38,7 +37,10 @@
 		F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */; };
 		F4EF832C21841A20001994F5 /* CustomOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832B21841A20001994F5 /* CustomOperator.swift */; };
 		F4EF832E21842592001994F5 /* OperatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832D21842592001994F5 /* OperatorTest.swift */; };
-		F4FECD0A2178BF67009B71BC /* FutureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4FECD092178BF67009B71BC /* FutureTests.swift */; };
+		F4EF834C21873024001994F5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834B21873024001994F5 /* Result.framework */; };
+		F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; };
+		F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		F4EF835021873585001994F5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834B21873024001994F5 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -75,6 +77,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */,
+				F4EF835021873585001994F5 /* Result.framework in Embed Frameworks */,
 				F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */,
 				F40AD6722181EB900096B796 /* KeychainAccess.framework in Embed Frameworks */,
 				F40AD6742181EB950096B796 /* TwitterText.framework in Embed Frameworks */,
@@ -103,7 +107,6 @@
 		F4612B5A2169E1D100D1A681 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		F4612B5C2169E1D100D1A681 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4612B5D2169E1D100D1A681 /* Demo.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Demo.entitlements; sourceTree = "<group>"; };
-		F4612B74216A4EFC00D1A681 /* Future.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Future.swift; sourceTree = "<group>"; };
 		F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthSwiftClient-Future.swift"; sourceTree = "<group>"; };
 		F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthWebViewController.swift; sourceTree = "<group>"; };
 		F4612B7D216AE2E000D1A681 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -119,7 +122,8 @@
 		F4D942CD2171D1B200C89FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TweetPanelController.xib; sourceTree = "<group>"; };
 		F4EF832B21841A20001994F5 /* CustomOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOperator.swift; sourceTree = "<group>"; };
 		F4EF832D21842592001994F5 /* OperatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorTest.swift; sourceTree = "<group>"; };
-		F4FECD092178BF67009B71BC /* FutureTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FutureTests.swift; sourceTree = "<group>"; };
+		F4EF834B21873024001994F5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
+		F4EF834D2187302E001994F5 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/Mac/BrightFutures.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +138,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */,
+				F4EF834C21873024001994F5 /* Result.framework in Frameworks */,
 				F4999597217CA75B0062FA20 /* KeychainAccess.framework in Frameworks */,
 				F44952AD21737B2F00265630 /* TwitterText.framework in Frameworks */,
 				F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */,
@@ -155,7 +161,6 @@
 		F42CF6742176200500D8AB75 /* TweetServiceTests */ = {
 			isa = PBXGroup;
 			children = (
-				F4FECD092178BF67009B71BC /* FutureTests.swift */,
 				F4EF832D21842592001994F5 /* OperatorTest.swift */,
 				F42CF6772176200500D8AB75 /* Info.plist */,
 			);
@@ -174,7 +179,6 @@
 				F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */,
 				F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */,
 				F4612B78216A6A6C00D1A681 /* AuthWebViewController.swift */,
-				F4612B74216A4EFC00D1A681 /* Future.swift */,
 				F4EF832B21841A20001994F5 /* CustomOperator.swift */,
 				F4612B76216A4F4000D1A681 /* OAuthSwiftClient-Future.swift */,
 				F43A41D8216E4DFF00C1E712 /* OAuth1Swift-Future.swift */,
@@ -224,6 +228,8 @@
 		F4612B7C216AE2DF00D1A681 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4EF834D2187302E001994F5 /* BrightFutures.framework */,
+				F4EF834B21873024001994F5 /* Result.framework */,
 				F4999596217CA75B0062FA20 /* KeychainAccess.framework */,
 				F44952B421737C5A00265630 /* OAuthSwift.framework */,
 				F44952AC21737B2F00265630 /* TwitterText.framework */,
@@ -382,7 +388,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4FECD0A2178BF67009B71BC /* FutureTests.swift in Sources */,
 				F4EF832E21842592001994F5 /* OperatorTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,7 +399,6 @@
 				F43A41F5216F9EDD00C1E712 /* OAuth1Swift-Future.swift in Sources */,
 				F4999593217C49910062FA20 /* TweetServiceError.swift in Sources */,
 				F43A41EB216F9E8800C1E712 /* TweetService.swift in Sources */,
-				F43A41F3216F9ED500C1E712 /* Future.swift in Sources */,
 				F43A41EC216F9E8C00C1E712 /* TweetPanelProvider.swift in Sources */,
 				F4EF832C21841A20001994F5 /* CustomOperator.swift in Sources */,
 				F43A41ED216F9E8F00C1E712 /* TweetPanelController.swift in Sources */,

@@ -78,7 +78,7 @@ private func bitmap(image: CGImage) -> Data? {
     
     let bytesPerRow = bytesPerPixel * width
     var pixelData = Data(count: height * bytesPerRow)
-    pixelData.withUnsafeMutableBytes { (rawData: UnsafeMutablePointer<UInt8>) -> Void in
+    pixelData.withUnsafeMutableBytes { (rawData: UnsafeMutablePointer<UInt8>) in
         
         let context = CGContext(data: rawData,
                                 width: width,
@@ -95,7 +95,7 @@ private func bitmap(image: CGImage) -> Data? {
 
 private func toBlack(data: Data) -> Data {
     
-    return data.withUnsafeBytes { (pixel: UnsafePointer<PixelWide>) -> Data in
+    return data.withUnsafeBytes { (pixel: UnsafePointer<PixelWide>) in
         
         let size = data.count / bytesPerPixel
         
@@ -113,7 +113,7 @@ private func toBlack(data: Data) -> Data {
 
 private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage? {
     
-    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> NSImage? in
+    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
         
         var pointer: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>(mutating: bytes)
         

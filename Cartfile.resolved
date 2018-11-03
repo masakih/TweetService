@@ -1,3 +1,5 @@
 github "OAuthSwift/OAuthSwift" "1.2.2"
+github "Thomvis/BrightFutures" "7.0.0"
+github "antitypical/Result" "4.0.0"
 github "kishikawakatsumi/KeychainAccess" "v3.1.2"
 github "twitter/twitter-text" "v3.0.0"
