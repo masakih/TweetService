@@ -127,9 +127,11 @@ carthage update --platform macos
 
 の他に
 
-- OAuthSwift.framework
-- TwitterText.framework
+- BrightFutures.framework
 - KeychainAccess.framework
+- OAuthSwift.framework
+- Result.framework
+- TwitterText.framework
 
 をエンベッドする必要があります。
 Carthageを利用した場合はCarthageディレクトリにあります。
