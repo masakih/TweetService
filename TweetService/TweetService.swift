@@ -240,8 +240,10 @@ public final class TweetService {
         let text = items.first{ item in item is String } as? String ?? ""
         let images = items.filter { item in item is NSImage } as? [NSImage] ?? []
         
-        return uploadImage(images: images)
-            .flatMap { _, mediaIds in
+        return images
+            .traverse { image in self.uploadImage(image) }
+            .map { ids in ids.compactMap { $0 } }
+            .flatMap { mediaIds in
                 
                 self.oauthswift
                     .client
@@ -254,40 +256,36 @@ public final class TweetService {
         }
     }
     
-    typealias UploadImageAttribute = (images: [NSImage], mediaIds: [String])
-    private func uploadImage(images: [NSImage], mediaIds: [String] = []) -> Future<UploadImageAttribute, TweetServiceError> {
-        
-        guard let image = images.first else {
-            
-            return Future(value: (images, mediaIds))
-        }
+    private func uploadImage(_ image: NSImage) -> Future<String?, TweetServiceError> {
         
         guard let imageData = jpegData(image) else {
             
-            return Future(value: (Array(images.dropFirst()), mediaIds))
+            return Future(value: nil)
         }
         
-        let promise = Promise<UploadImageAttribute, TweetServiceError>()
+        let promise = Promise<String?, TweetServiceError>()
         
         oauthswift
             .client
             .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
             .future
-            .flatMap { response in
-                
-                Future(result: Result {
-                    
-                    let json = try JSONSerialization.jsonObject(with: response.data) !!! TweetServiceError.couldNotParseJSON
-                    let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
-                    let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
-                    
-                    return (Array(images.dropFirst()) , mediaIds + [mediaId])
-                })
-            }
+            .flatMap(mediaId(response:))
             .onSuccess { result in promise.success(result) }
             .onFailure { error in promise.failure(error) }
         
-        return promise.future.flatMap(uploadImage)
+        return promise.future
+    }
+    
+    private func mediaId(response: OAuthSwiftResponse) -> Result<String, TweetServiceError> {
+        
+        return Result {
+            
+            let json = try JSONSerialization.jsonObject(with: response.data) !!! TweetServiceError.couldNotParseJSON
+            let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
+            let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
+            
+            return mediaId
+        }
     }
     
     private func retrieveFromKeyChain() -> Future<Void, TweetServiceError> {
