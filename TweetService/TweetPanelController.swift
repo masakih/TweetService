@@ -9,6 +9,7 @@
 import Cocoa
 
 import BrightFutures
+import Result
 import TwitterText
 
 
@@ -51,7 +52,7 @@ final class TweetPanelController: NSWindowController {
     ///   - string: initial string
     ///   - images: initial images
     /// - Returns: Future of OperationResult of TweetPanelController. This future will always success.
-    func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>, NSError> {
+    func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>, NoError> {
         
         text = NSAttributedString(string: string)
         self.images = images
@@ -100,7 +101,7 @@ final class TweetPanelController: NSWindowController {
         }
     }
     
-    private var promise: Promise<OperationResult<TweetPanelController>, NSError>?
+    private var promise: Promise<OperationResult<TweetPanelController>, NoError>?
     
     @IBAction private func tweet(_: Any) {
         
