@@ -19,7 +19,7 @@ extension OAuth1Swift {
         
         authorize(withCallbackURL: withCallbackURL,
                   success: { (credential, response, parameters) in promise.success((credential, response, parameters)) },
-                  failure: { error in promise.failure(error) })
+                  failure: promise.failure)
         
         return promise.future.mapError(convertError)
     }

@@ -23,8 +23,8 @@ extension OAuthSwiftClient {
                              method: method,
                              parameters: parameters,
                              headers: headers,
-                             success: { response in promise.success(response) },
-                             failure: { error in promise.failure(error) })
+                             success: promise.success,
+                             failure: promise.failure)
         
         return (promise.future.mapError(convertError), handle)
     }
@@ -35,8 +35,8 @@ extension OAuthSwiftClient {
         let handle = postImage(urlString,
                                parameters: parameters,
                                image: image,
-                               success: { response in promise.success(response) },
-                               failure: { error in promise.failure(error) })
+                               success: promise.success,
+                               failure: promise.failure)
         
         return (promise.future.mapError(convertError), handle)
     }
