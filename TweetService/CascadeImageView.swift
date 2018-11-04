@@ -21,9 +21,7 @@ final class CascadeImageView: NSView {
     var images: [NSImage] = []
     
     var offset: NSSize = NSSize(width: 6, height: 4)
-    
-//    var direction: NSControl.ImagePosition = .imageRight
-    
+        
     
     // MARK: - NSView
     
@@ -34,12 +32,12 @@ final class CascadeImageView: NSView {
         
         imageShadow.set()
         
-        let dwarBounds = NSRect(x: bounds.origin.x,
-                                y: bounds.origin.y,
-                                width: bounds.size.width - 10,
-                                height: bounds.size.height - 5)
+        let drawingBounds = NSRect(x: bounds.origin.x,
+                                   y: bounds.origin.y,
+                                   width: bounds.size.width - 10,
+                                   height: bounds.size.height - 5)
         
-        let imageWidth = dwarBounds.size.width - CGFloat(images.count - 1) * offset.width
+        let imageWidth = drawingBounds.size.width - CGFloat(images.count - 1) * offset.width
         
         _ = images
             .reversed()
@@ -52,8 +50,8 @@ final class CascadeImageView: NSView {
             }
             .reduce(0.0) { (imageOffset, imageInfo) -> CGFloat in
                 
-                let rect = NSRect(x: dwarBounds.maxX - imageWidth - offset.width * imageOffset,
-                                  y: dwarBounds.maxY - imageInfo.size.height - offset.height * imageOffset,
+                let rect = NSRect(x: drawingBounds.maxX - imageWidth - offset.width * imageOffset,
+                                  y: drawingBounds.maxY - imageInfo.size.height - offset.height * imageOffset,
                                   width: imageInfo.size.width,
                                   height: imageInfo.size.height)
                 
