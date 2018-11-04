@@ -292,9 +292,7 @@ public final class TweetService {
         
         return Future(result: Result {
             
-            let keychain = Keychain(service: "TweetService")
-            
-            let data = try keychain
+            let data = try Keychain(service: "TweetService")
                 .authenticationPrompt("Authenticate to tweet")
                 .getData("credental") !!! TweetServiceError.keychainAccessInternal
             let credentalData = try data ??! TweetServiceError.credentalNotStoreInKeychain
