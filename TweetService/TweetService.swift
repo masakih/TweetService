@@ -148,7 +148,7 @@ public final class TweetService {
                     .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
                     .mapError(convertError)
             }
-            .flatMap { items in self.postTweet(items: items) }
+            .flatMap(self.postTweet)
             .onSuccess { items in self.delegate?.tweetService(self, didPostItems: items) }
             .onFailure { error in
                 
@@ -241,7 +241,7 @@ public final class TweetService {
         let images = items.filter { item in item is NSImage } as? [NSImage] ?? []
         
         return images
-            .traverse { image in self.uploadImage(image) }
+            .traverse(f: self.uploadImage)
             .map { ids in ids.compactMap { $0 } }
             .flatMap { mediaIds in
                 
@@ -270,8 +270,8 @@ public final class TweetService {
             .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
             .future
             .flatMap(mediaId(response:))
-            .onSuccess { result in promise.success(result) }
-            .onFailure { error in promise.failure(error) }
+            .onSuccess(callback: promise.success)
+            .onFailure(callback: promise.failure)
         
         return promise.future
     }
