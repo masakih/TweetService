@@ -55,8 +55,8 @@ final class BlurWindowController: NSWindowController {
 
 // 256 grayscale with alpha
 private typealias PixelWide = UInt16
-private let bytesPerPixel = 2
-private let bitsPerComponent = 8
+private let bytesPerPixel = MemoryLayout<PixelWide>.size
+private let bitsPerComponent = bytesPerPixel * 4
 private let alphaMask: PixelWide = 0xff00
 
 private func shadowImage(window: NSWindow) -> NSImage? {
