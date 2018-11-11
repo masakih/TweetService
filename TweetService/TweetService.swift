@@ -251,9 +251,9 @@ public final class TweetService {
                                    method: .POST,
                                    parameters: parameter(text: text, mediaIds: mediaIds))
                     .future
-                    .map { _ in items }
-                    .mapError(convertError)
-        }
+            }
+            .map { _ in items }
+            .mapError(convertError)
     }
     
     private func uploadImage(_ image: NSImage) -> Future<String?, TweetServiceError> {
