@@ -257,23 +257,26 @@ public final class TweetService {
     }
     
     private func uploadImage(_ image: NSImage) -> Future<String?, TweetServiceError> {
-        
-        guard let imageData = jpegData(image) else {
-            
-            return Future(value: nil)
+                
+        return jpegData(image)
+            .flatMap { imageData in
+                
+                self.oauthswift
+                    .client
+                    .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
+                    .future
+            }
+            .flatMap(self.mediaId(response:))
+            .map { mediaId -> String? in mediaId }
+            .recoverWith { error in
+                
+                switch error {
+                    
+                case .canNotCreateDataFromNSImage: return Future(value: nil)
+                    
+                default: return Future(error: error)
+                }
         }
-        
-        let promise = Promise<String?, TweetServiceError>()
-        
-        oauthswift
-            .client
-            .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
-            .future
-            .flatMap(mediaId(response:))
-            .onSuccess(callback: promise.success)
-            .onFailure(callback: promise.failure)
-        
-        return promise.future
     }
     
     private func mediaId(response: OAuthSwiftResponse) -> Result<String, TweetServiceError> {
@@ -371,14 +374,14 @@ private func parameter(text: String, mediaIds: [String]) -> OAuthSwift.Parameter
     }
 }
 
-private func jpegData(_ image: NSImage) -> Data? {
+private func jpegData(_ image: NSImage) -> Future<Data, TweetServiceError> {
     
     guard let tiff = image.tiffRepresentation,
         let bitmapRep = NSBitmapImageRep(data: tiff),
         let imageData = bitmapRep.representation(using: .jpeg, properties: [:]) else {
             
-            return nil
+            return Future(error: .canNotCreateDataFromNSImage)
     }
     
-    return imageData
+    return Future(value: imageData)
 }

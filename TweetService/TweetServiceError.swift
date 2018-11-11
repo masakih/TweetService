@@ -43,6 +43,8 @@ public enum TweetServiceError: Error {
     case requestError(error: Error, request: URLRequest)
     
     case twitterError(message: String, code: Int)
+    
+    case canNotCreateDataFromNSImage
         
     case unknownError(Error)
 }
