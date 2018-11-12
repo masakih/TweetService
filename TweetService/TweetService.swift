@@ -306,14 +306,14 @@ public final class TweetService {
         })
     }
     
-    private func storeCredental() -> Future<Void, TweetServiceError> {
+    private func storeCredental() -> Result<Void, TweetServiceError> {
         
-        return Future(result: Result {
+        return Result {
             
             let archiveData = try self.oauthswift.client.credential.archive()
             let keychain = Keychain(service: "TweetService")
             try? keychain.set(archiveData, key: "credental")
-        })
+            }
             .mapError(convertError)
     }
 }
