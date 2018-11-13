@@ -293,17 +293,20 @@ public final class TweetService {
     
     private func retrieveFromKeyChain() -> Future<Void, TweetServiceError> {
         
-        return Future(result: Result {
+        return Future { complete in
             
-            let data = try Keychain(service: "TweetService")
-                .authenticationPrompt("Authenticate to tweet")
-                .getData("credental") !!! TweetServiceError.keychainAccessInternal
-            let credentalData = try data ??! TweetServiceError.credentalNotStoreInKeychain
-            let credental = try OAuthSwiftCredential.unarchive(credentalData)
-            
-            self.oauthswift.client.credential.oauthToken = credental.oauthToken
-            self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
-        })
+            complete(Result {
+                
+                let data = try Keychain(service: "TweetService")
+                    .authenticationPrompt("Authenticate to tweet")
+                    .getData("credental") !!! TweetServiceError.keychainAccessInternal
+                let credentalData = try data ??! TweetServiceError.credentalNotStoreInKeychain
+                let credental = try OAuthSwiftCredential.unarchive(credentalData)
+                
+                self.oauthswift.client.credential.oauthToken = credental.oauthToken
+                self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
+            })
+        }
     }
     
     private func storeCredental() -> Result<Void, TweetServiceError> {
@@ -376,12 +379,18 @@ private func parameter(text: String, mediaIds: [String]) -> OAuthSwift.Parameter
 
 private func jpegData(_ image: NSImage) -> Future<Data, TweetServiceError> {
     
-    guard let tiff = image.tiffRepresentation,
-        let bitmapRep = NSBitmapImageRep(data: tiff),
-        let imageData = bitmapRep.representation(using: .jpeg, properties: [:]) else {
+    return Future { complete in
+        
+        complete(Result {
             
-            return Future(error: .canNotCreateDataFromNSImage)
+            guard let tiff = image.tiffRepresentation,
+                let bitmapRep = NSBitmapImageRep(data: tiff),
+                let imageData = bitmapRep.representation(using: .jpeg, properties: [:]) else {
+                    
+                    throw TweetServiceError.canNotCreateDataFromNSImage
+            }
+            
+            return imageData
+        })
     }
-    
-    return Future(value: imageData)
 }
