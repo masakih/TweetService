@@ -111,8 +111,6 @@ public final class TweetService {
     
     private let webViewController: AuthWebViewController
     
-    private let tweetPanelProvider = TweetPanelProvider()
-    
     private func canTweet(items: [Any]) -> Bool {
         
         // check String or Image
@@ -144,7 +142,7 @@ public final class TweetService {
             }
             .flatMap {
                 
-                self.tweetPanelProvider
+                TweetPanelProvider()
                     .showTweetPanelFuture(self.delegate?.tweetService(self, sourceWindowForShareItems: items), shareItems: items)
                     .mapError(convertError)
             }
