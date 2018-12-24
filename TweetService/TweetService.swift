@@ -242,7 +242,7 @@ public final class TweetService {
         
         return images
             .traverse(f: self.uploadImage)
-            .map { ids in ids.compactMap { $0 } }
+            .map { ids in ids.compactMap { $0.value } }
             .flatMap { mediaIds in
                 
                 self.oauthswift
@@ -256,7 +256,7 @@ public final class TweetService {
             .mapError(convertError)
     }
     
-    private func uploadImage(_ image: NSImage) -> Future<String?, TweetServiceError> {
+    private func uploadImage(_ image: NSImage) -> Future<Result<String, TweetServiceError>, TweetServiceError> {
                 
         return jpegData(image)
             .flatMap { imageData in
@@ -266,13 +266,12 @@ public final class TweetService {
                     .postImageFuture("https://upload.twitter.com/1.1/media/upload.json", image: imageData)
                     .future
             }
-            .flatMap(self.mediaId(response:))
-            .map { mediaId -> String? in mediaId }
+            .map(self.mediaId(response:))
             .recoverWith { error in
                 
                 switch error {
                     
-                case .canNotCreateDataFromNSImage: return Future(value: nil)
+                case .canNotCreateDataFromNSImage: return Future(value: Result(error: .canNotCreateDataFromNSImage))
                     
                 default: return Future(error: error)
                 }
