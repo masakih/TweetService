@@ -15,6 +15,11 @@ Tweet sharing service for macOS
 
 _動画のツイートはまだ未対応_
 
+
+![Screenshot](https://raw.githubusercontent.com/masakih/TweetService/master/Demo/Screenshot02.jpg)
+
+![Screenshot](https://raw.githubusercontent.com/masakih/TweetService/master/Demo/Screenshot01.jpg)
+
 # 使い方
 
 ## Step 0
