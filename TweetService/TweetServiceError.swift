@@ -57,7 +57,7 @@ func twitterError(_ error: TweetServiceError) -> TweetServiceError? {
     if case let .requestError(nserror as NSError, _) = error,
         let resData = nserror.userInfo[OAuthSwiftError.ResponseDataKey] as? Data,
         let json = try? JSONSerialization.jsonObject(with: resData, options: .allowFragments) as? [String: Any],
-        let errors = json?["errors"] as? [[String: Any]],
+        let errors = json["errors"] as? [[String: Any]],
         let firstError = errors.first,
         let message = firstError["message"] as? String,
         let code = firstError["code"] as? Int {
@@ -113,5 +113,8 @@ func convertError(_ error: Error) -> TweetServiceError {
         
     case .cancelled: fatalError("unreached cancelled")
         
+    case .slowDown(let error, let request): fatalError("slowDown: \(error), \(request)")
+        
+    case .accessDenied(let error, let request): fatalError("accessDenied: \(error), \(request)")
     }
 }
