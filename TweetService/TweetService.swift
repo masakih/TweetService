@@ -158,6 +158,7 @@ public final class TweetService {
                     
                 case .missingToken:
                     
+                    self.didAuthrized = false
                     self.oauthswift = makeOAuth1Swift(consumerKey: self.oauthswift.client.credential.consumerKey,
                                                       consumerSecretKey: self.oauthswift.client.credential.consumerSecret)
                     
@@ -200,7 +201,7 @@ public final class TweetService {
         
         oauthswift.authorizeURLHandler = webViewController
         webViewController.delegate = self
-        authorizePanelParent(for: items).addChildViewController(webViewController)
+        authorizePanelParent(for: items).addChild(webViewController)
         
         return  oauthswift
             .authorizeFuture(withCallbackURL: URL(string: callbackScheme + "://oauth-callback/twitter")!)
@@ -278,21 +279,21 @@ public final class TweetService {
     
     private func mediaId(response: OAuthSwiftResponse) -> Result<String, TweetServiceError> {
         
-        return Result {
+        return Result(catching: {
             
             let json = try JSONSerialization.jsonObject(with: response.data) !!! TweetServiceError.couldNotParseJSON
             let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
             let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
             
             return mediaId
-        }
+        })
     }
     
     private func retrieveFromKeyChain() -> Future<Void, TweetServiceError> {
         
         return Future { complete in
             
-            complete(Result {
+            complete(Result(catching: {
                 
                 let data = try Keychain(service: "TweetService")
                     .authenticationPrompt("Authenticate to tweet")
@@ -302,18 +303,18 @@ public final class TweetService {
                 
                 self.oauthswift.client.credential.oauthToken = credental.oauthToken
                 self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
-            })
+            }))
         }
     }
     
     private func storeCredental() -> Result<Void, TweetServiceError> {
         
-        return Result {
+        return Result(catching: {
             
             let archiveData = try self.oauthswift.client.credential.archive()
             let keychain = Keychain(service: "TweetService")
             try? keychain.set(archiveData, key: "credental")
-            }
+            })
             .mapError(convertError)
     }
 }
@@ -378,7 +379,7 @@ private func jpegData(_ image: NSImage) -> Future<Data, TweetServiceError> {
     
     return Future { complete in
         
-        complete(Result {
+        complete(Result(catching: {
             
             guard let tiff = image.tiffRepresentation,
                 let bitmapRep = NSBitmapImageRep(data: tiff),
@@ -388,6 +389,6 @@ private func jpegData(_ image: NSImage) -> Future<Data, TweetServiceError> {
             }
             
             return imageData
-        })
+        }))
     }
 }
