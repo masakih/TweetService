@@ -78,7 +78,9 @@ private func bitmap(image: CGImage) -> Data? {
     
     let bytesPerRow = bytesPerPixel * width
     var pixelData = Data(count: height * bytesPerRow)
-    pixelData.withUnsafeMutableBytes { (rawData: UnsafeMutablePointer<UInt8>) in
+    pixelData.withUnsafeMutableBytes { bytes in
+        
+        let rawData = bytes.baseAddress?.bindMemory(to: UInt8.self, capacity: height * bytesPerRow)
         
         let context = CGContext(data: rawData,
                                 width: width,
@@ -95,27 +97,20 @@ private func bitmap(image: CGImage) -> Data? {
 
 private func toBlack(data: Data) -> Data {
     
-    return data.withUnsafeBytes { (pixel: UnsafePointer<PixelWide>) in
+    return data.withUnsafeBytes { bytes in
         
-        let size = data.count / bytesPerPixel
-        
-        let buffer = UnsafeMutablePointer<PixelWide>.allocate(capacity: size)
-        defer { buffer.deallocate() }
-        
-        for i in 0..<size {
-            
-            buffer[i] = pixel[i] & alphaMask
-        }
-        
-        return Data(bytes: buffer, count: data.count)
+        return Data(bytes: bytes.bindMemory(to: PixelWide.self).map { $0 & alphaMask },
+                    count: data.count)
     }
 }
 
 private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage? {
     
-    return data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+    var copy = data
+    
+    return copy.withUnsafeMutableBytes { bytes in
         
-        var pointer: UnsafeMutablePointer<UInt8>? = UnsafeMutablePointer<UInt8>(mutating: bytes)
+        var pointer = bytes.baseAddress?.bindMemory(to: UInt8.self, capacity: data.count)
         
         return NSBitmapImageRep(bitmapDataPlanes: &pointer,
                                 pixelsWide: width,
