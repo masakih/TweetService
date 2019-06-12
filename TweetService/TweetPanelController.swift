@@ -52,7 +52,7 @@ final class TweetPanelController: NSWindowController {
     ///   - string: initial string
     ///   - images: initial images
     /// - Returns: Future of OperationResult of TweetPanelController. This future will always success.
-    func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>, NoError> {
+    func showPanel(string: String, images: [NSImage]) -> Future<OperationResult<TweetPanelController>, Never> {
         
         text = NSAttributedString(string: string)
         self.images = images
@@ -101,7 +101,7 @@ final class TweetPanelController: NSWindowController {
         }
     }
     
-    private var promise: Promise<OperationResult<TweetPanelController>, NoError>?
+    private var promise: Promise<OperationResult<TweetPanelController>, Never>?
     
     @IBAction private func tweet(_: Any) {
         
