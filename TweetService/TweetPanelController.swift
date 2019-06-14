@@ -9,7 +9,6 @@
 import Cocoa
 
 import BrightFutures
-import Result
 import TwitterText
 
 

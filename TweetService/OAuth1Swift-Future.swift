@@ -13,13 +13,11 @@ import OAuthSwift
 
 extension OAuth1Swift {
     
-    func authorizeFuture(withCallbackURL: URL) -> Future<(OAuthSwiftCredential, OAuthSwiftResponse?, OAuthSwift.Parameters), TweetServiceError> {
+    func authorizeFuture(withCallbackURL url: URL) -> Future<TokenSuccess, TweetServiceError> {
         
-        let promise = Promise<(OAuthSwiftCredential, OAuthSwiftResponse?, OAuthSwift.Parameters), OAuthSwiftError>()
+        let promise = Promise<TokenSuccess, OAuthSwiftError>()
         
-        authorize(withCallbackURL: withCallbackURL,
-                  success: { (credential, response, parameters) in promise.success((credential, response, parameters)) },
-                  failure: promise.failure)
+        authorize(withCallbackURL: url, completionHandler: promise.complete)
         
         return promise.future.mapError(convertError)
     }

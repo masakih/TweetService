@@ -11,7 +11,6 @@ import Cocoa
 import BrightFutures
 import KeychainAccess
 import OAuthSwift
-import Result
 
 
 // MARK: - TweetServiceDelegate
@@ -279,21 +278,22 @@ public final class TweetService {
     
     private func mediaId(response: OAuthSwiftResponse) -> Result<String, TweetServiceError> {
         
-        return Result(catching: {
+        return Result {
             
             let json = try JSONSerialization.jsonObject(with: response.data) !!! TweetServiceError.couldNotParseJSON
             let dict = try json as? [String: Any] ??! TweetServiceError.jsonNotDictionary
             let mediaId = try dict["media_id_string"] as? String ??! TweetServiceError.notContainsMediaId
             
             return mediaId
-        })
+            }
+            .mapError(convertError)
     }
     
     private func retrieveFromKeyChain() -> Future<Void, TweetServiceError> {
         
         return Future { complete in
             
-            complete(Result(catching: {
+            complete(Result {
                 
                 let data = try Keychain(service: "TweetService")
                     .authenticationPrompt("Authenticate to tweet")
@@ -303,18 +303,20 @@ public final class TweetService {
                 
                 self.oauthswift.client.credential.oauthToken = credental.oauthToken
                 self.oauthswift.client.credential.oauthTokenSecret = credental.oauthTokenSecret
-            }))
+                }
+                .mapError(convertError)
+            )
         }
     }
     
     private func storeCredental() -> Result<Void, TweetServiceError> {
         
-        return Result(catching: {
+        return Result {
             
             let archiveData = try self.oauthswift.client.credential.archive()
             let keychain = Keychain(service: "TweetService")
             try? keychain.set(archiveData, key: "credental")
-            })
+            }
             .mapError(convertError)
     }
 }
@@ -366,12 +368,11 @@ private func makeOAuth1Swift(consumerKey: String, consumerSecretKey: String) -> 
 
 private func parameter(text: String, mediaIds: [String]) -> OAuthSwift.Parameters {
     
-    let mediaIDsString = mediaIds.joined(separator: ",")
-    switch mediaIDsString {
+    switch mediaIds.joined(separator: ",") {
         
     case "": return ["status": text]
         
-    default: return ["status": text, "media_ids": mediaIDsString]
+    case let mediaIDsString: return ["status": text, "media_ids": mediaIDsString]
     }
 }
 
@@ -379,16 +380,16 @@ private func jpegData(_ image: NSImage) -> Future<Data, TweetServiceError> {
     
     return Future { complete in
         
-        complete(Result(catching: {
+        complete(Result {
             
-            guard let tiff = image.tiffRepresentation,
-                let bitmapRep = NSBitmapImageRep(data: tiff),
-                let imageData = bitmapRep.representation(using: .jpeg, properties: [:]) else {
-                    
-                    throw TweetServiceError.canNotCreateDataFromNSImage
-            }
+            let tiff = try image.tiffRepresentation ??! TweetServiceError.canNotCreateDataFromNSImage
+            let bitmapRep = try NSBitmapImageRep(data: tiff) ??! TweetServiceError.canNotCreateDataFromNSImage
+            let imageData = try bitmapRep.representation(using: .jpeg, properties: [:]) ??! TweetServiceError.canNotCreateDataFromNSImage
             
             return imageData
-        }))
+            
+            }
+            .mapError(convertError)
+        )
     }
 }

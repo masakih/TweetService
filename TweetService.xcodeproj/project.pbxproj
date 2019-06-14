@@ -37,10 +37,8 @@
 		F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */; };
 		F4EF832C21841A20001994F5 /* CustomOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832B21841A20001994F5 /* CustomOperator.swift */; };
 		F4EF832E21842592001994F5 /* OperatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832D21842592001994F5 /* OperatorTest.swift */; };
-		F4EF834C21873024001994F5 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834B21873024001994F5 /* Result.framework */; };
 		F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; };
 		F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F4EF835021873585001994F5 /* Result.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834B21873024001994F5 /* Result.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +76,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */,
-				F4EF835021873585001994F5 /* Result.framework in Embed Frameworks */,
 				F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */,
 				F40AD6722181EB900096B796 /* KeychainAccess.framework in Embed Frameworks */,
 				F40AD6742181EB950096B796 /* TwitterText.framework in Embed Frameworks */,
@@ -139,7 +136,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */,
-				F4EF834C21873024001994F5 /* Result.framework in Frameworks */,
 				F4999597217CA75B0062FA20 /* KeychainAccess.framework in Frameworks */,
 				F44952AD21737B2F00265630 /* TwitterText.framework in Frameworks */,
 				F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */,
