@@ -106,6 +106,19 @@ private func toBlack(data: Data) -> Data {
 
 private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage? {
     
+    guard let rep = grayscaleBitmapImageRep(from: data, width: width, height: height) else {
+        
+        retrun nil
+    }
+    
+    let image = NSImage(size: rep.size)
+    image.addRepresentation(rep)
+    
+    return image
+}
+
+private func grayscaleBitmapImageRep(from data: Data, width: Int, height: Int) -> NSBitmapImageRep? {
+    
     var copy = data
     
     return copy.withUnsafeMutableBytes { bytes in
@@ -122,7 +135,5 @@ private func grayscaleImage(from data: Data, width: Int, height: Int) -> NSImage
                                 colorSpaceName: NSColorSpaceName.deviceWhite,
                                 bytesPerRow: bytesPerPixel * width,
                                 bitsPerPixel: bytesPerPixel * bitsPerComponent)
-            .flatMap { $0.tiffRepresentation }
-            .flatMap { NSImage(data: $0) }
     }
 }
