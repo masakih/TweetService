@@ -3,14 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		F40AD6722181EB900096B796 /* KeychainAccess.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4999596217CA75B0062FA20 /* KeychainAccess.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F40AD6732181EB920096B796 /* OAuthSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F40AD6742181EB950096B796 /* TwitterText.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F44952AC21737B2F00265630 /* TwitterText.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F44952B421737C5A00265630 /* OAuthSwift.framework */; };
 		F42CF6542174D46A00D8AB75 /* OperationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = F42CF6532174D46A00D8AB75 /* OperationResult.swift */; };
 		F43A41E3216F9E7F00C1E712 /* TweetService.h in Headers */ = {isa = PBXBuildFile; fileRef = F43A41E1216F9E7F00C1E712 /* TweetService.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F43A41E6216F9E7F00C1E712 /* TweetService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F43A41DF216F9E7F00C1E712 /* TweetService.framework */; };
@@ -32,13 +29,15 @@
 		F4612B81216AEDE700D1A681 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B7F216AEDE700D1A681 /* ViewController.swift */; };
 		F4612B82216AEDE700D1A681 /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4612B80216AEDE700D1A681 /* ViewController.xib */; };
 		F4612B88216B876C00D1A681 /* TwitterKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4612B87216B876C00D1A681 /* TwitterKeys.swift */; };
+		F4694D032539C93D007BFDA3 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = F4694D022539C93D007BFDA3 /* KeychainAccess */; };
+		F4694D072539C978007BFDA3 /* OAuthSwift in Frameworks */ = {isa = PBXBuildFile; productRef = F4694D062539C978007BFDA3 /* OAuthSwift */; };
+		F481AE542539CC6E00748ED3 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F481AE532539CC6E00748ED3 /* BrightFutures.framework */; };
+		F481AE5B2539CCEE00748ED3 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F481AE532539CC6E00748ED3 /* BrightFutures.framework */; };
+		F481AE5C2539CCEE00748ED3 /* BrightFutures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F481AE532539CC6E00748ED3 /* BrightFutures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		F4999593217C49910062FA20 /* TweetServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4999592217C49910062FA20 /* TweetServiceError.swift */; };
-		F4999597217CA75B0062FA20 /* KeychainAccess.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4999596217CA75B0062FA20 /* KeychainAccess.framework */; };
 		F4D942CC2171D1B200C89FE2 /* TweetPanelController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F4D942CE2171D1B200C89FE2 /* TweetPanelController.xib */; };
 		F4EF832C21841A20001994F5 /* CustomOperator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832B21841A20001994F5 /* CustomOperator.swift */; };
 		F4EF832E21842592001994F5 /* OperatorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EF832D21842592001994F5 /* OperatorTest.swift */; };
-		F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; };
-		F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F4EF834D2187302E001994F5 /* BrightFutures.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,27 +58,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		F43A41F7216F9F1C00C1E712 /* Copy Framework */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-			);
-			name = "Copy Framework";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		F4612B71216A43FF00D1A681 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				F4EF834F21873582001994F5 /* BrightFutures.framework in Embed Frameworks */,
+				F481AE5C2539CCEE00748ED3 /* BrightFutures.framework in Embed Frameworks */,
 				F43A41E7216F9E7F00C1E712 /* TweetService.framework in Embed Frameworks */,
-				F40AD6722181EB900096B796 /* KeychainAccess.framework in Embed Frameworks */,
 				F40AD6742181EB950096B796 /* TwitterText.framework in Embed Frameworks */,
-				F40AD6732181EB920096B796 /* OAuthSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,7 +84,6 @@
 		F43A41E2216F9E7F00C1E712 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F446F6DF2181FB15008E0938 /* OAuthSwiftCredential-Archive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "OAuthSwiftCredential-Archive.swift"; sourceTree = "<group>"; };
 		F44952AC21737B2F00265630 /* TwitterText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TwitterText.framework; path = Carthage/Build/Mac/TwitterText.framework; sourceTree = "<group>"; };
-		F44952B421737C5A00265630 /* OAuthSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OAuthSwift.framework; path = Carthage/Build/Mac/OAuthSwift.framework; sourceTree = "<group>"; };
 		F4612B522169E1CF00D1A681 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4612B552169E1CF00D1A681 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4612B572169E1D100D1A681 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -114,13 +100,11 @@
 		F4612B8B216CD50F00D1A681 /* TweetPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetPanelController.swift; sourceTree = "<group>"; };
 		F4612B8F216CDF2900D1A681 /* CascadeImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CascadeImageView.swift; sourceTree = "<group>"; };
 		F4612B91216E1F4E00D1A681 /* BlurWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurWindowController.swift; sourceTree = "<group>"; };
+		F481AE532539CC6E00748ED3 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/Mac/BrightFutures.framework; sourceTree = "<group>"; };
 		F4999592217C49910062FA20 /* TweetServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetServiceError.swift; sourceTree = "<group>"; };
-		F4999596217CA75B0062FA20 /* KeychainAccess.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = KeychainAccess.framework; path = Carthage/Build/Mac/KeychainAccess.framework; sourceTree = "<group>"; };
 		F4D942CD2171D1B200C89FE2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TweetPanelController.xib; sourceTree = "<group>"; };
 		F4EF832B21841A20001994F5 /* CustomOperator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomOperator.swift; sourceTree = "<group>"; };
 		F4EF832D21842592001994F5 /* OperatorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OperatorTest.swift; sourceTree = "<group>"; };
-		F4EF834B21873024001994F5 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/Mac/Result.framework; sourceTree = "<group>"; };
-		F4EF834D2187302E001994F5 /* BrightFutures.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = BrightFutures.framework; path = Carthage/Build/Mac/BrightFutures.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,10 +119,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F4EF834E2187302E001994F5 /* BrightFutures.framework in Frameworks */,
-				F4999597217CA75B0062FA20 /* KeychainAccess.framework in Frameworks */,
+				F4694D032539C93D007BFDA3 /* KeychainAccess in Frameworks */,
+				F481AE542539CC6E00748ED3 /* BrightFutures.framework in Frameworks */,
 				F44952AD21737B2F00265630 /* TwitterText.framework in Frameworks */,
-				F42CF65121737CD000D8AB75 /* OAuthSwift.framework in Frameworks */,
+				F4694D072539C978007BFDA3 /* OAuthSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,6 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F481AE5B2539CCEE00748ED3 /* BrightFutures.framework in Frameworks */,
 				F4612B7E216AE2E000D1A681 /* WebKit.framework in Frameworks */,
 				F43A41E6216F9E7F00C1E712 /* TweetService.framework in Frameworks */,
 			);
@@ -224,10 +209,7 @@
 		F4612B7C216AE2DF00D1A681 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F4EF834D2187302E001994F5 /* BrightFutures.framework */,
-				F4EF834B21873024001994F5 /* Result.framework */,
-				F4999596217CA75B0062FA20 /* KeychainAccess.framework */,
-				F44952B421737C5A00265630 /* OAuthSwift.framework */,
+				F481AE532539CC6E00748ED3 /* BrightFutures.framework */,
 				F44952AC21737B2F00265630 /* TwitterText.framework */,
 				F4612B7D216AE2E000D1A681 /* WebKit.framework */,
 			);
@@ -274,13 +256,16 @@
 				F43A41DB216F9E7F00C1E712 /* Frameworks */,
 				F43A41DC216F9E7F00C1E712 /* Headers */,
 				F43A41DD216F9E7F00C1E712 /* Resources */,
-				F43A41F7216F9F1C00C1E712 /* Copy Framework */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = TweetService;
+			packageProductDependencies = (
+				F4694D022539C93D007BFDA3 /* KeychainAccess */,
+				F4694D062539C978007BFDA3 /* OAuthSwift */,
+			);
 			productName = TweetService;
 			productReference = F43A41DF216F9E7F00C1E712 /* TweetService.framework */;
 			productType = "com.apple.product-type.framework";
@@ -311,7 +296,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1000;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Hori,Masaki";
 				TargetAttributes = {
 					F42CF6722176200500D8AB75 = {
@@ -341,6 +326,11 @@
 				Base,
 			);
 			mainGroup = F4612B492169E1CF00D1A681;
+			packageReferences = (
+				F4694D012539C93D007BFDA3 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
+				F4694D052539C978007BFDA3 /* XCRemoteSwiftPackageReference "OAuthSwift" */,
+				F4694D092539C989007BFDA3 /* XCRemoteSwiftPackageReference "BrightFutures" */,
+			);
 			productRefGroup = F4612B532169E1CF00D1A681 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -588,6 +578,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -648,6 +639,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -681,8 +673,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Demo/Demo.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Q36Y25CV2M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -694,6 +688,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -704,8 +699,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Demo/Demo.entitlements;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEVELOPMENT_TEAM = Q36Y25CV2M;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
@@ -717,6 +714,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.masakih.Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
@@ -761,6 +759,46 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		F4694D012539C93D007BFDA3 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.2.0;
+			};
+		};
+		F4694D052539C978007BFDA3 /* XCRemoteSwiftPackageReference "OAuthSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/OAuthSwift/OAuthSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.0;
+			};
+		};
+		F4694D092539C989007BFDA3 /* XCRemoteSwiftPackageReference "BrightFutures" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Thomvis/BrightFutures";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		F4694D022539C93D007BFDA3 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4694D012539C93D007BFDA3 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
+		F4694D062539C978007BFDA3 /* OAuthSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = F4694D052539C978007BFDA3 /* XCRemoteSwiftPackageReference "OAuthSwift" */;
+			productName = OAuthSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = F4612B4A2169E1CF00D1A681 /* Project object */;
 }

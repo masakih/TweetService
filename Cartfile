@@ -1,8 +1,4 @@
 
-github "OAuthSwift/OAuthSwift" ~> 2.0
-
 github "twitter/twitter-text" ~> 3.0.0
-
-github "kishikawakatsumi/KeychainAccess"
 
 github "Thomvis/BrightFutures"
